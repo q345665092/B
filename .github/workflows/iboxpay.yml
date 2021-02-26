@@ -1,29 +1,46 @@
+
 name: 笑谱
 
 on:
   workflow_dispatch:
+  schedule:
+     - cron: '*/30 0-15 * * *'
   watch:
     types: started
-  schedule:
-    - cron: '30 0-15 * * *'
 jobs:
   build:
-    runs-on: ubuntu-latest       
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    env:
+        XP_refreshTOKEN: ${{ secrets.XP_refreshTOKEN }}
+        XP_CASH: ${{ secrets.XP_CASH }}
+        XP_live: ${{ secrets.XP_live }}
     steps:
       - name: Checkout
         run: |
           git clone https://github.com/66903202/ziye.git ~/ziye
-      - name: Use Node.js 14.x
+      - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 12.x
       - name: npm install
+        if: env.XP_refreshTOKEN
         run: |
           cd ~/ziye
           npm install
-          npm install cron
-          npm install request
       - name: '运行 【笑谱】'
+        if: env.XP_refreshTOKEN
         run: |
-          cd ~/ziye   
-          node Task/iboxpays.js
+          cd ~/ziye
+          node Task/iboxpay.js
+        env:
+          
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          BARK_PUSH: ${{ secrets.BARK_PUSH }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_USER_ID: ${{ secrets.TG_USER_ID }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
+          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+
+    
