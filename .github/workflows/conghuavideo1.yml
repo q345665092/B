@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   # 目前运行3000金币左右上限，body不用抓太多没有意义,cron自己看着写
   schedule:
-     - cron: '0 0 1 1 *'
+     - cron: '0*/10 * * *'
   watch:
     types: started
 jobs:
@@ -30,6 +30,7 @@ jobs:
       - name: npm install
         run: |
           npm install
+
       - name: '运行 【葱花视频账号1-视频阅读】'
         if: env.RONGHUA_VIDEO
         run: |
