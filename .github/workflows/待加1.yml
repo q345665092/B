@@ -1,9 +1,9 @@
-name: 待加1
+name: 悦动族
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '0 8,12 * * *'
+     - cron: '0,30 16-15 * * *'
   watch:
     types: started
 jobs:
@@ -11,9 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        YMZ_ymzhuanggBODY: ${{ secrets.YMZ_ymzhuanggBODY }}
-        YMZ_ymzhuanspBODY: ${{ secrets.YMZ_ymzhuanspBODY }}
-        YMZ_ymzhuantxBODY: ${{ secrets.YMZ_ymzhuantxBODY }}		
+        YDZ_yuedongzuTOKEN: ${{ secrets. YDZ_yuedongzuTOKEN }}		
         
     steps:
       - name: Checkout
@@ -24,7 +22,7 @@ jobs:
         with:
           node-version: 12.x
       - name: npm install
-        if: env.YMZ_ymzhuanggBODY
+        if: env. YDZ_yuedongzuTOKEN
         run: |
           cd ~/ziye
           npm install
