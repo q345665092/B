@@ -26,11 +26,11 @@ jobs:
         run: |
           cd ~/ziye
           npm install
-      - name: '运行 【羊毛赚】'
-        if: env.YMZ_ymzhuanggBODY
+      - name: '运行 【悦动族】'
+        if: env. YDZ_yuedongzuTOKEN
         run: |
           cd ~/ziye
-          node Task/ymzhuan.js
+          node Task/yuedongzu.js
         env:
           
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
