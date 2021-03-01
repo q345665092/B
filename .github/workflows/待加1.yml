@@ -1,4 +1,4 @@
-name: 羊毛赚
+name: 待加1
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
     env:
         YMZ_ymzhuanggBODY: ${{ secrets.YMZ_ymzhuanggBODY }}
-        YMZ_ymzhuanggBODY: ${{ secrets.YMZ_ymzhuanggBODY }}
+        YMZ_ymzhuanspBODY: ${{ secrets.YMZ_ymzhuanspBODY }}
         YMZ_ymzhuantxBODY: ${{ secrets.YMZ_ymzhuantxBODY }}		
         
     steps:
