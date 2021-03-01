@@ -1,18 +1,18 @@
-name: 中青看点1
+name: 羊毛赚
 
 on:
   workflow_dispatch:
   watch:
     types: started
   schedule:
-    - cron: '*/30 0-23 * * *'
+    - cron: '7 8,12 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest    
     steps:
       - name: Checkout
         run: |
-          git clone https://github.com/66903202/cxk.git ~/cxk
+          git clone https://github.com/66903202/ziye.git ~/ziye
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
