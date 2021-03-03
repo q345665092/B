@@ -3,7 +3,7 @@ name: 悦动族
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/30 * * * *'
+     - cron: '0,30 16-15 * * *'
   watch:
     types: started
 jobs:
@@ -11,13 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-<<<<<<< HEAD:.github/workflows/ymzhuna.yml
-        YMZ_ymzhuanggBODY: ${{ secrets.YMZ_ymzhuanggBODY }}
-        YMZ_ymzhuanspBODY: ${{ secrets.YMZ_ymzhuanspBODY }}
-        YMZ_ymzhuantxBODY: ${{ secrets.YMZ_ymzhuantxBODY }}		
-=======
         YDZ_yuedongzuTOKEN: ${{ secrets. YDZ_yuedongzuTOKEN }}		
->>>>>>> ebbdc961f5fc97e9d70367254275e4ace41a506a:.github/workflows/yuedongzu.yml
         
     steps:
       - name: Checkout
