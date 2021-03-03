@@ -1,0 +1,29 @@
+name: 葱花
+
+on:
+  workflow_dispatch:
+  watch:
+    types: started
+  schedule:
+    - cron: '0 */10 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest       
+    steps:
+      - name: Checkout
+        run: |
+          git clone https://github.com/66903202/ziye.git ~/ziye
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: npm install
+        run: |
+          cd ~/ziye
+          npm install
+          npm install cron
+          npm install request
+      - name: '运行 【葱花】'
+        run: |
+          cd ~/ziye   
+          node Task/conghua.js
