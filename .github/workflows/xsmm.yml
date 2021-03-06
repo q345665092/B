@@ -3,7 +3,7 @@ name: 悬赏喵喵@feizao3
 on:
   workflow_dispatch:
   schedule:
-     - cron: '6 */6 * * *'
+     - cron: '6 */3 * * *'
   watch:
     types: started
 jobs:
