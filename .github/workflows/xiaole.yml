@@ -1,3 +1,4 @@
+  
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
@@ -6,7 +7,7 @@ name: 小乐
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/30 0-6 * * *'
+     - cron: '*/30 0-5 * * *'
   watch:
     types: started
 jobs:
@@ -14,9 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        XL_URL: ${{ secrets.XL_URL }}
-        XL_HEADER: ${{ secrets.XL_HEADER }}		
         
+        XL_URL: ${{ secrets.XL_URL }}
+        XL_HEADER: ${{ secrets.XL_HEADER }}
     steps:
       - name: Checkout
         run: |
@@ -44,5 +45,3 @@ jobs:
           BARK_SOUND: ${{ secrets.BARK_SOUND }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-
-    
