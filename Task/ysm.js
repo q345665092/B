@@ -28,11 +28,11 @@ let ysmkey = ''
     ysm2bodyArr.push($.getdata(`ysm2body${i}`))
     ysmtxArr.push($.getdata(`ysmtx${i}`))
   }
-  ysmurlArr = ['http://erd.bgbyxd.bar/yunonline/v1/task']
-  ysmhdArr = ['{"Host":"erd.bgbyxd.bar","Connection":"keep-alive","Content-Length":"609","Accept":"application/json, text/javascript, */*; q=0.01","Origin":"http://erd.bgbyxd.bar","X-Requested-With":"XMLHttpRequest","User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36 QBCore/4.0.1316.400 QQBrowser/9.0.2524.400 Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2875.116 Safari/537.36 NetType/WIFI MicroMessenger/7.0.20.1781(0x6700143B) WindowsWechat","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8","Referer":"http://erd.bgbyxd.bar/yunonline/v1/redirect/eyJpdiI6Imp4ZFdHT29rYnFXVUJ0dzJZS2p3OWc9PSIsInZhbHVlIjoiS21MT01QcndISWpzN2hYaEZpRzhqczM3cnpvNXVXQTVnWU1BZHJUTVBoem1YY3BFYnJsXC8rem9XT09YTGJ3NFFDSm15dmFKTmo0VG5DSDdTR2l4XC9BS3EzMnVMMWttUmg4aUVRanJpV1hXcnlMNjlvSUh0V2NlZk93eVZVbngrdGRrMHFFZmNvcWVDVVlGT01zejA3bFc1RnNjZVhIUFhGbjliYnZrWTJzQllsVHpoU1BaS1IyK3VxSURBSXdCZ3JYTFdKXC9vdW83UUtUZkdqRkJiSHdsQT09IiwibWFjIjoiYmExNWUwNjkwNzg5Y2E0OWM0MTExOWUxMDBlNzU0MzI3NzFkYjY5N2MwNWU5NWRlODAwMTkzOWU3NzI3YTRiOCJ9?openid=oksnzwY73AjJfry-hgRNEM5WgEHc","Accept-Encoding":"gzip, deflate","Accept-Language":"zh-CN,zh;q=0.8,en-US;q=0.6,en;q=0.5;q=0.4"}']
-  ysm2bodyArr = ['openid=oksnzwY73AjJfry-hgRNEM5WgEHc&time=55']
-  ysmbodyArr = ['secret=eyJpdiI6IlJ2T1RvQ0VuOEJmNURaS3RcL1AwSmF3PT0iLCJ2YWx1ZSI6Im12eXpTUmw4andKZEhcL0tTRFBjMHp1SWRUYzQwVDVERjMyZHZ3NDgxMlhYUG16Mkx1eTYwMHhaZjV0REtLbFkzb0k3T3RnTFwvOFlsNXdUdDcwRW90Z3VnQVZkQSt5YWQyYUplcUZKU3M2XC8wbmt6RFlScml0c0hKT1NGb016dVQ1d01JZG1PMmJuVkZPeXBXVGs4eFV4N0VYVmpCejgrRkhUMlNLV2kwN3hpKzNhKzAwNWhZN1ArcVJlc3l5XC91Y3ZITlZEamZ2M2poUEJibmZNNllDU1lPYlRIR3UxVFwvSVlaSzRSTkd3V0N2cndaZ0t0b24yelNZa0tLYVI0XC9Zc1JESGhnSzIzWUNhTGcyM2poUXpXWVBkOGR3K2I3Qm9Bc2RvdEhtdTQ2VDFQTlVcL1RKVXZnOXNvNEtwWkpvcjNkSCIsIm1hYyI6ImJlZTljNjIzNmFjM2RiZWFlN2FiZGFiYTA2ZTEzNjQ2YjI4YjljY2JlMDZhYTU1NDkyOWNkOTUxYWY5OTJhYWQifQ%253D%253D&type=read']
-  ysmtxArr = ['openid=oksnzwY73AjJfry-hgRNEM5WgEHc&request_id=dc9272cd722b8d84ac9c60e14b2005e8&ua=0']
+  ysmurlArr = ['']
+  ysmhdArr = ['']
+  ysm2bodyArr = ['']
+  ysmbodyArr = ['']
+  ysmtxArr = ['']
 
     console.log(`------------- 共${ysmhdArr.length}个账号-------------\n`)
       for (let i = 0; i < ysmhdArr.length; i++) {
