@@ -1,9 +1,12 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
 name: 笑谱
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/30 0-15 * * *'
+     - cron: '*/15 0-15 * * *'
   watch:
     types: started
 jobs:
@@ -11,14 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        XP_refreshTOKEN: ${{ secrets.XP_refreshTOKEN }}      		
+        
+        XP_refreshTOKEN: ${{ secrets.XP_refreshTOKEN }}
+        XP_iboxpayvideoHEADER: ${{ secrets.XP_iboxpayvideoHEADER }}
+        XP_iboxpayvideoBODY: ${{ secrets.XP_iboxpayvideoBODY }}
         XP_CASH: ${{ secrets.XP_CASH }}
         XP_live: ${{ secrets.XP_live }}
-        
     steps:
       - name: Checkout
         run: |
-          git clone https://github.com/niubi-66/B.git ~/B
+          git clone https://github.com/niubi/B.git ~/B
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
@@ -27,7 +32,6 @@ jobs:
         if: env.XP_refreshTOKEN
         run: |
           cd ~/B
-          git checkout ZIYE
           npm install
       - name: '运行 【笑谱】'
         if: env.XP_refreshTOKEN
