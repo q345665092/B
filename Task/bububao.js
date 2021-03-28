@@ -8,7 +8,7 @@ const notifyttt = 1; // 0为关闭外部推送，1为12 23 点外部推送
 const notifyInterval = 2; // 0为关闭通知，1为所有通知，2为12 23 点通知  ， 3为 6 12 18 23 点通知
 $.message = '', COOKIES_SPLIT = '', CASH = '0.3', ddtime = '';
 CZ = 10;
-const bububaotokenArr = ['E9EF9203A6F60F2A822EFCBC0525123G1610987646','856EC643FF814EA7620D89682533304G1615731812','C23400E796E11F7CE8B3C315F533305G1615731874'];
+const bububaotokenArr = ['2A9F23F851BC6AE2F55C0BB5D525262G1611013963'];
 let bububaotokenVal = ``;
 Length = bububaotokenArr.length;
 
