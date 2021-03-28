@@ -1,18 +1,50 @@
+/*
+github：https://github.com/ZhiYi-N/script
+boxjs：https://raw.githubusercontent.com/ZhiYi-N/Private-Script/master/ZhiYi-N.boxjs.json
+转载留个名字，谢谢
+作者：执意ZhiYi-N
+目前包含：
+签到
+看广告获取金币
+看视频获取金币
+随机宝箱
+脚本初成，非专业人士制作，欢迎指正
+#签到详情获取signheader and signkey，一定要签到详情界面获取到的
+#看广告获取adheader and adkey
+#看一个视频获取readheader and readkey
+
+[mitm]
+hostname = *.snssdk.com
+#圈x
+[rewrite local]
+/luckycat/hotsoon/v1/task/done/daily_read_\d+m? url script-request-header https://raw.githubusercontent.com/ZhiYi-N/Private-Script/master/Scripts/hotsoon_old.js
+/luckycat/hotsoon/v1/task/done/draw_excitation_ad? url script-request-header https://raw.githubusercontent.com/ZhiYi-N/Private-Script/master/Scripts/hotsoon_old.js
+/luckycat/hotsoon/v1/task/sign_in_detail? script-request-header https://raw.githubusercontent.com/ZhiYi-N/Private-Script/master/Scripts/hotsoon_old.js
+#loon
+http-request /luckycat/hotsoon/v1/task/done/daily_read_\d+m? script-path=https://raw.githubusercontent.com/ZhiYi-N/Private-Script/master/Scripts/hotsoon_old.js, requires-body=true, timeout=10, tag=hotsoonread
+http-request /luckycat/hotsoon/v1/task/done/draw_excitation_ad? script-path=https://raw.githubusercontent.com/ZhiYi-N/Private-Script/master/Scripts/hotsoon_old.js, requires-body=true, timeout=10, tag=hotsoonad
+http-request /luckycat/hotsoon/v1/task/sign_in_detail? script-path=https://raw.githubusercontent.com/ZhiYi-N/Private-Script/master/Scripts/hotsoon_old.js, requires-body=true, timeout=10, tag=hotsoonsign
+#surge
+hotsoonsign = type=http-request,pattern=/luckycat/hotsoon/v1/task/sign_in_detail?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/ZhiYi-N/Private-Script/master/Scripts/hotsoon_old.js,script-update-interval=0
+hotsoonad = type=http-request,pattern=/luckycat/hotsoon/v1/task/done/draw_excitation_ad?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/ZhiYi-N/Private-Script/master/Scripts/hotsoon_old.js,script-update-interval=0
+hotsoonread = type=http-request,pattern=/luckycat/hotsoon/v1/task/done/daily_read_\d+m?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/ZhiYi-N/Private-Script/master/Scripts/hotsoon_old.js,script-update-interval=0
+*/
 const jsname='火山视频极速版'
 const $ = Env(jsname)
 const notify = $.isNode() ?require('./sendNotify') : '';
 $.idx = ($.idx = ($.getval("hotsooncount") || "1") - 1) > 0 ? `${$.idx + 1}` : ""; // 账号扩展字符
-const hotsoonsignheaderArr = ['version_code=7.6.4&app_name=live_stream_lite&vid=26EF965F-ECCA-4660-BD53-DBA5AE13169E&device_id=59475227375&new_nav=0&channel=App%20Store&aid=1350&screen_width=828&client_request_id=5452d4c7ce178d3758a3f85e80c75390&openudid=8a21caeb6b0806b2531517ff3b7817dc8218d740&live_sdk_version=7.6.4&update_version_code=7642&os_api=18&ws_status=CLOSED&ac=4G&mccmnc=46002&os_version=14.4&client_version_code=764&device_platform=iphone&iid=193930840800844&device_type=iPhone11,8&idfa=00000000-0000-0000-0000-000000000000'],hotsoonsignkeyArr=['{"Accept-Encoding":"gzip, deflate","x-Tt-Token":"00369132599d9abd3c31ef2c790920bc1e01b2c66accf4813a0473a05d4d8f695c453cd55755fb640b833d53a887c2fe4c2c728c13d5ff85a73eadc3b24a53eccf0c19f49e226bb8cccb517806b57eb45132d27dbfe1ebcc69c31130a75e1a4c32014-1.0.1","Connection":"keep-alive","Cookie":"passport_csrf_token=f0cbdbf5864c4ea228b1b4e338bfcb28; passport_csrf_token_default=f0cbdbf5864c4ea228b1b4e338bfcb28; odin_tt=b464193f3017d9a44eccc27868a9bf09a009dd6beea7b2556e6535b33da2cb6226ffdaf7650cd3b4c0b4e8c36273f1a96c9282e4b030e4e5c9c14e842cf6a8e0; d_ticket=f9d5e15d4bab4720f65e53ddef8a687099a54; n_mh=8k25Q0KGRhoZ9_e6AKJh8OvprqyGfx0azcISVCX8qtI; sid_guard=369132599d9abd3c31ef2c790920bc1e%7C1614296488%7C5184000%7CMon%2C+26-Apr-2021+23%3A41%3A28+GMT; uid_tt=ee95288872ba40606570a624c5440298; uid_tt_ss=ee95288872ba40606570a624c5440298; sid_tt=369132599d9abd3c31ef2c790920bc1e; sessionid=369132599d9abd3c31ef2c790920bc1e; sessionid_ss=369132599d9abd3c31ef2c790920bc1e; install_id=193930840800844; ttreq=1$820fc44ef448be3bb915a78f264c653b7779493d","Host":"ib-hl.snssdk.com","User-Agent":"HotsoonLite 7.6.4 rv:7642 (iPhone; iOS 14.4; zh_CN) Cronet","X-Khronos":"1614440683","sdk-version":"1","x-tt-trace-id":"00-e429d82309dd8fff2efb1a52acd80546-e429d82309dd8fff-01","X-Gorgon":"8402608e00005f5b194bec2101fe3c09e4850404bb6be15fd13f"}']
-const hotsoonadheaderArr = ['version_code=7.6.2&app_name=live_stream_lite&vid=26EF965F-ECCA-4660-BD53-DBA5AE13169E&device_id=59475227375&new_nav=0&channel=App%20Store&aid=1350&ab_group=1568502&screen_width=828&client_request_id=941a94d8cac1f668172f34a8ed114215&openudid=8a21caeb6b0806b2531517ff3b7817dc8218d740&live_sdk_version=7.6.2&update_version_code=7621&os_api=18&ws_status=CONNECTED&ac=WIFI&mccmnc=46002&os_version=14.3&client_version_code=762&device_platform=iphone&iid=1741280253853998&device_type=iPhone11,8&idfa=00000000-0000-0000-0000-000000000000'],hotsoonadkeyArr=['{"x-tt-trace-id":"00-fbea8e9a09dd8fff2ef3e9f687cd0546-fbea8e9a09dd8fff-01","Connection":"keep-alive","Accept-Encoding":"gzip, deflate","X-SS-Cookie":"excgd=20210113; install_id=1741280253853998; ttreq=1$b6362df6f681acd370a389313736f097b1251265; d_ticket=f9d5e15d4bab4720f65e53ddef8a687099a54; n_mh=8k25Q0KGRhoZ9_e6AKJh8OvprqyGfx0azcISVCX8qtI; odin_tt=b464193f3017d9a44eccc27868a9bf09a009dd6beea7b2556e6535b33da2cb6226ffdaf7650cd3b4c0b4e8c36273f1a96c9282e4b030e4e5c9c14e842cf6a8e0; sessionid=369132599d9abd3c31ef2c790920bc1e; sessionid_ss=369132599d9abd3c31ef2c790920bc1e; sid_guard=369132599d9abd3c31ef2c790920bc1e%7C1609986008%7C5184000%7CMon%2C+08-Mar-2021+02%3A20%3A08+GMT; sid_tt=369132599d9abd3c31ef2c790920bc1e; uid_tt=ee95288872ba40606570a624c5440298; uid_tt_ss=ee95288872ba40606570a624c5440298; passport_csrf_token=f0cbdbf5864c4ea228b1b4e338bfcb28; passport_csrf_token_default=f0cbdbf5864c4ea228b1b4e338bfcb28","sdk-version":"1","Content-Type":"application/json; encoding=utf-8","x-Tt-Token":"00369132599d9abd3c31ef2c790920bc1e033b4ef103f84f502170653b3cca70507984f4ae44a270577d8e1b4b0cefec739090367f87c9f6891f6373a8d68c185d091d52d11715a1ccebe340376af775b47a3-1.0.0","X-SS-STUB":"22E67CC3AE278CB47BCA0058382D3330","X-Khronos":"1610544221","User-Agent":"HotsoonLite 7.6.2 rv:7621 (iPhone; iOS 14.3; zh_CN) Cronet","tt-request-time":"1610544221474","Cookie":"passport_csrf_token=f0cbdbf5864c4ea228b1b4e338bfcb28; passport_csrf_token_default=f0cbdbf5864c4ea228b1b4e338bfcb28; odin_tt=b464193f3017d9a44eccc27868a9bf09a009dd6beea7b2556e6535b33da2cb6226ffdaf7650cd3b4c0b4e8c36273f1a96c9282e4b030e4e5c9c14e842cf6a8e0; d_ticket=f9d5e15d4bab4720f65e53ddef8a687099a54; n_mh=8k25Q0KGRhoZ9_e6AKJh8OvprqyGfx0azcISVCX8qtI; sid_guard=369132599d9abd3c31ef2c790920bc1e%7C1609986008%7C5184000%7CMon%2C+08-Mar-2021+02%3A20%3A08+GMT; uid_tt=ee95288872ba40606570a624c5440298; uid_tt_ss=ee95288872ba40606570a624c5440298; sid_tt=369132599d9abd3c31ef2c790920bc1e; sessionid=369132599d9abd3c31ef2c790920bc1e; sessionid_ss=369132599d9abd3c31ef2c790920bc1e; excgd=20210113; install_id=1741280253853998; ttreq=1$b6362df6f681acd370a389313736f097b1251265","Host":"ib-hl.snssdk.com","X-Gorgon":"8402605e000089851c0a7d13b5599c120356d9df8f9c78e9a63a","Accept":"application/json","Content-Length":"4"}']
-const hotsoonreadheaderArr = ['version_code=7.6.4&app_name=live_stream_lite&vid=26EF965F-ECCA-4660-BD53-DBA5AE13169E&device_id=59475227375&new_nav=0&channel=App%20Store&aid=1350&screen_width=828&client_request_id=62e053c4d59c61a61c7a7984318954e3&openudid=8a21caeb6b0806b2531517ff3b7817dc8218d740&live_sdk_version=7.6.4&update_version_code=7642&os_api=18&ws_status=CONNECTED&ac=4G&mccmnc=46002&os_version=14.4&client_version_code=764&device_platform=iphone&iid=193930840800844&device_type=iPhone11,8&idfa=00000000-0000-0000-0000-000000000000'],hotsoonreadkeyArr=['{"x-tt-trace-id":"00-e42a0aa609dd8fff2efd2bfb67370546-e42a0aa609dd8fff-01","Connection":"keep-alive","Accept-Encoding":"gzip, deflate","X-SS-Cookie":"install_id=193930840800844; sessionid=369132599d9abd3c31ef2c790920bc1e; sessionid_ss=369132599d9abd3c31ef2c790920bc1e; sid_guard=369132599d9abd3c31ef2c790920bc1e%7C1614296488%7C5184000%7CMon%2C+26-Apr-2021+23%3A41%3A28+GMT; sid_tt=369132599d9abd3c31ef2c790920bc1e; ttreq=1$820fc44ef448be3bb915a78f264c653b7779493d; uid_tt=ee95288872ba40606570a624c5440298; uid_tt_ss=ee95288872ba40606570a624c5440298; d_ticket=f9d5e15d4bab4720f65e53ddef8a687099a54; n_mh=8k25Q0KGRhoZ9_e6AKJh8OvprqyGfx0azcISVCX8qtI; odin_tt=b464193f3017d9a44eccc27868a9bf09a009dd6beea7b2556e6535b33da2cb6226ffdaf7650cd3b4c0b4e8c36273f1a96c9282e4b030e4e5c9c14e842cf6a8e0; passport_csrf_token=f0cbdbf5864c4ea228b1b4e338bfcb28; passport_csrf_token_default=f0cbdbf5864c4ea228b1b4e338bfcb28","sdk-version":"1","Content-Type":"application/json; encoding=utf-8","x-Tt-Token":"00369132599d9abd3c31ef2c790920bc1e01b2c66accf4813a0473a05d4d8f695c453cd55755fb640b833d53a887c2fe4c2c728c13d5ff85a73eadc3b24a53eccf0c19f49e226bb8cccb517806b57eb45132d27dbfe1ebcc69c31130a75e1a4c32014-1.0.1","X-SS-STUB":"D41D8CD98F00B204E9800998ECF8427E","X-Khronos":"1614440696","User-Agent":"HotsoonLite 7.6.4 rv:7642 (iPhone; iOS 14.4; zh_CN) Cronet","tt-request-time":"1614440696109","Cookie":"passport_csrf_token=f0cbdbf5864c4ea228b1b4e338bfcb28; passport_csrf_token_default=f0cbdbf5864c4ea228b1b4e338bfcb28; odin_tt=b464193f3017d9a44eccc27868a9bf09a009dd6beea7b2556e6535b33da2cb6226ffdaf7650cd3b4c0b4e8c36273f1a96c9282e4b030e4e5c9c14e842cf6a8e0; d_ticket=f9d5e15d4bab4720f65e53ddef8a687099a54; n_mh=8k25Q0KGRhoZ9_e6AKJh8OvprqyGfx0azcISVCX8qtI; sid_guard=369132599d9abd3c31ef2c790920bc1e%7C1614296488%7C5184000%7CMon%2C+26-Apr-2021+23%3A41%3A28+GMT; uid_tt=ee95288872ba40606570a624c5440298; uid_tt_ss=ee95288872ba40606570a624c5440298; sid_tt=369132599d9abd3c31ef2c790920bc1e; sessionid=369132599d9abd3c31ef2c790920bc1e; sessionid_ss=369132599d9abd3c31ef2c790920bc1e; install_id=193930840800844; ttreq=1$820fc44ef448be3bb915a78f264c653b7779493d","Host":"ib-hl.snssdk.com","X-Gorgon":"840280fd0000772a559d0e4a92ca2adeb60f3478272df7c73200","Accept":"application/json","Content-Length":"0"}']
+const hotsoonsignheaderArr = [],hotsoonsignkeyArr=[]
+const hotsoonadheaderArr = [],hotsoonadkeyArr=[]
+const hotsoonreadheaderArr = [],hotsoonreadkeyArr=[]
 let hotsoonsignheader = $.getdata('hotsoonsignheader')
 let hotsoonsigncookie = $.getdata('hotsoonsigncookie')
 
 let hotsoonadheader = $.getdata('hotsoonadheader')
 let hotsoonadkey = $.getdata('hotsoonadkey')
-let no = 1;
+let no = 1,cash=1;
 let hotsoonreadheader = $.getdata('hotsoonreadheader')
 let hotsoonreadkey = $.getdata('hotsoonreadkey')
+let hotsoonaccount = ($.getval('hotsoonaccount') || 0);
 let tz = ($.getval('tz') || '1');//0关闭通知，1默认开启
 const logs =0;//0为关闭日志，1为开启
 var hour=''
@@ -249,6 +281,12 @@ async function control(){
    }else{
      $.log("跳过广告收益，您没有此活动")
      }
+    if(hotsoonaccount){
+     await profits()
+     }
+    if(cash == 1 && coins >= 20){
+     await withdraw()
+     }
 }
 //广告
 function ad() {
@@ -278,7 +316,7 @@ return new Promise((resolve, reject) => {
 function profit() {
 return new Promise((resolve, reject) => {
   let profiturl ={
-    url: `https://i-hl.snssdk.com/luckycat/hotsoon/v1/wallet/profit_detail_page?income_type=2&num=80&${hotsoonsignheader}`,
+    url: `https://ib-hl.snssdk.com/luckycat/hotsoon/v1/wallet/profit_detail_page?income_type=2&num=80&${hotsoonsignheader}`,
     headers :JSON.parse(hotsoonsignkey),
 }
    $.get(profiturl,(error, response, data) =>{
@@ -298,11 +336,12 @@ $.log(no)
 
 //看视频
 function watch_video(no) {
+let now = new Date().getTime()
+let header = hotsoonreadkey.replace(/X-Khronos":"\d+/,`X-Khronos":"${now}`)
 return new Promise((resolve, reject) => {
   let watch_videourl ={
-    url: `https://ib-hl.snssdk.com/luckycat/hotsoon/v1/task/done/daily_read_${no}m?${hotsoonreadheader}`,
+    url: `https://ib.snssdk.com/luckycat/hotsoon/v1/task/done/daily_read_${no}m?${hotsoonreadheader}`,
     headers: JSON.parse(hotsoonreadkey),
-    timeout: 60000,
 }
    $.post(watch_videourl,(error, response, data) =>{
      const result = JSON.parse(data)
@@ -334,6 +373,7 @@ return new Promise((resolve, reject) => {
      }}
       else if(result.err_no == 0) {
           message +='🎉'+result.err_tips+'获得:'+result.data.amount+"\n"
+          //return showmsg();
         }
       else{
           message += '⚠️异常:'+result.err_tips+'\n'+'请重新获取readkey\n'
@@ -344,6 +384,55 @@ return new Promise((resolve, reject) => {
     })
    })
   } 
+//profit page
+function profits() {
+return new Promise((resolve, reject) => {
+  let profitsurl ={
+    url: `https://ib-hl.snssdk.com/luckycat/hotsoon/v1/wallet/profit_detail_page?&aid=1350&profit_type=score&polaris_version=2.0.0&income_type=1&${hotsoonsignheader}`,
+    headers: JSON.parse(hotsoonsignkey),
+}
+   $.get(profitsurl,async(error, response, data) =>{
+     const result = JSON.parse(data)
+     if(logs) $.log(data)
+     let time = Math.round(new Date(new Date().toLocaleDateString()).getTime()/1000)
+coins = result.data.income_data.cash_balance
+if(result.data.profit_detail.cash_income_list.find(item => item.time >= time) && result.data.profit_detail.cash_income_list.find(item => item.task_id == '215')){
+     cash = 0;
+     }
+          resolve()
+    })
+   })
+  } 
+//withdraw
+function withdraw() {
+return new Promise((resolve, reject) => {
+  let withdrawurl ={
+    url: `https://ib-hl.snssdk.com/luckycat/hotsoon/v1/wallet/take_cash?polaris_version=2.0.0&${hotsoonreadheader}`,
+    headers: JSON.parse(hotsoonreadkey),
+    body:`{
+  "task_id" : 215,
+  "account" : "${hotsoonaccount}",
+  "cash_amount" : -20,
+  "is_auto" : true,
+  "name" : "",
+  "take_cash_way" : "alipay"
+}`
+}
+   $.post(withdrawurl,(error, response, data) =>{
+     const result = JSON.parse(data)
+        $.log(data)
+       message += '📣提现0.2元\n'
+      if(result.err_no == 0){
+          console.log(result.err_tips+'提现0.2元\n')
+          message += result.err_tips+'提现0.2元\n'
+      }
+      else{
+          console.log(result.err_tips+"\n")
+        }
+          resolve()
+    })
+   })
+  }
 async function showmsg(){
 if(tz==1){
     if ($.isNode()){
@@ -362,4 +451,3 @@ if(tz==1){
     }
  }
 function Env(t,e){class s{constructor(t){this.env=t}send(t,e="GET"){t="string"==typeof t?{url:t}:t;let s=this.get;return"POST"===e&&(s=this.post),new Promise((e,i)=>{s.call(this,t,(t,s,r)=>{t?i(t):e(s)})})}get(t){return this.send.call(this.env,t)}post(t){return this.send.call(this.env,t,"POST")}}return new class{constructor(t,e){this.name=t,this.http=new s(this),this.data=null,this.dataFile="box.dat",this.logs=[],this.isMute=!1,this.isNeedRewrite=!1,this.logSeparator="\n",this.startTime=(new Date).getTime(),Object.assign(this,e),this.log("",`\ud83d\udd14${this.name}, \u5f00\u59cb!`)}isNode(){return"undefined"!=typeof module&&!!module.exports}isQuanX(){return"undefined"!=typeof $task}isSurge(){return"undefined"!=typeof $httpClient&&"undefined"==typeof $loon}isLoon(){return"undefined"!=typeof $loon}toObj(t,e=null){try{return JSON.parse(t)}catch{return e}}toStr(t,e=null){try{return JSON.stringify(t)}catch{return e}}getjson(t,e){let s=e;const i=this.getdata(t);if(i)try{s=JSON.parse(this.getdata(t))}catch{}return s}setjson(t,e){try{return this.setdata(JSON.stringify(t),e)}catch{return!1}}getScript(t){return new Promise(e=>{this.get({url:t},(t,s,i)=>e(i))})}runScript(t,e){return new Promise(s=>{let i=this.getdata("@chavy_boxjs_userCfgs.httpapi");i=i?i.replace(/\n/g,"").trim():i;let r=this.getdata("@chavy_boxjs_userCfgs.httpapi_timeout");r=r?1*r:20,r=e&&e.timeout?e.timeout:r;const[o,h]=i.split("@"),a={url:`http://${h}/v1/scripting/evaluate`,body:{script_text:t,mock_type:"cron",timeout:r},headers:{"X-Key":o,Accept:"*/*"}};this.post(a,(t,e,i)=>s(i))}).catch(t=>this.logErr(t))}loaddata(){if(!this.isNode())return{};{this.fs=this.fs?this.fs:require("fs"),this.path=this.path?this.path:require("path");const t=this.path.resolve(this.dataFile),e=this.path.resolve(process.cwd(),this.dataFile),s=this.fs.existsSync(t),i=!s&&this.fs.existsSync(e);if(!s&&!i)return{};{const i=s?t:e;try{return JSON.parse(this.fs.readFileSync(i))}catch(t){return{}}}}}writedata(){if(this.isNode()){this.fs=this.fs?this.fs:require("fs"),this.path=this.path?this.path:require("path");const t=this.path.resolve(this.dataFile),e=this.path.resolve(process.cwd(),this.dataFile),s=this.fs.existsSync(t),i=!s&&this.fs.existsSync(e),r=JSON.stringify(this.data);s?this.fs.writeFileSync(t,r):i?this.fs.writeFileSync(e,r):this.fs.writeFileSync(t,r)}}lodash_get(t,e,s){const i=e.replace(/\[(\d+)\]/g,".$1").split(".");let r=t;for(const t of i)if(r=Object(r)[t],void 0===r)return s;return r}lodash_set(t,e,s){return Object(t)!==t?t:(Array.isArray(e)||(e=e.toString().match(/[^.[\]]+/g)||[]),e.slice(0,-1).reduce((t,s,i)=>Object(t[s])===t[s]?t[s]:t[s]=Math.abs(e[i+1])>>0==+e[i+1]?[]:{},t)[e[e.length-1]]=s,t)}getdata(t){let e=this.getval(t);if(/^@/.test(t)){const[,s,i]=/^@(.*?)\.(.*?)$/.exec(t),r=s?this.getval(s):"";if(r)try{const t=JSON.parse(r);e=t?this.lodash_get(t,i,""):e}catch(t){e=""}}return e}setdata(t,e){let s=!1;if(/^@/.test(e)){const[,i,r]=/^@(.*?)\.(.*?)$/.exec(e),o=this.getval(i),h=i?"null"===o?null:o||"{}":"{}";try{const e=JSON.parse(h);this.lodash_set(e,r,t),s=this.setval(JSON.stringify(e),i)}catch(e){const o={};this.lodash_set(o,r,t),s=this.setval(JSON.stringify(o),i)}}else s=this.setval(t,e);return s}getval(t){return this.isSurge()||this.isLoon()?$persistentStore.read(t):this.isQuanX()?$prefs.valueForKey(t):this.isNode()?(this.data=this.loaddata(),this.data[t]):this.data&&this.data[t]||null}setval(t,e){return this.isSurge()||this.isLoon()?$persistentStore.write(t,e):this.isQuanX()?$prefs.setValueForKey(t,e):this.isNode()?(this.data=this.loaddata(),this.data[e]=t,this.writedata(),!0):this.data&&this.data[e]||null}initGotEnv(t){this.got=this.got?this.got:require("got"),this.cktough=this.cktough?this.cktough:require("tough-cookie"),this.ckjar=this.ckjar?this.ckjar:new this.cktough.CookieJar,t&&(t.headers=t.headers?t.headers:{},void 0===t.headers.Cookie&&void 0===t.cookieJar&&(t.cookieJar=this.ckjar))}get(t,e=(()=>{})){t.headers&&(delete t.headers["Content-Type"],delete t.headers["Content-Length"]),this.isSurge()||this.isLoon()?(this.isSurge()&&this.isNeedRewrite&&(t.headers=t.headers||{},Object.assign(t.headers,{"X-Surge-Skip-Scripting":!1})),$httpClient.get(t,(t,s,i)=>{!t&&s&&(s.body=i,s.statusCode=s.status),e(t,s,i)})):this.isQuanX()?(this.isNeedRewrite&&(t.opts=t.opts||{},Object.assign(t.opts,{hints:!1})),$task.fetch(t).then(t=>{const{statusCode:s,statusCode:i,headers:r,body:o}=t;e(null,{status:s,statusCode:i,headers:r,body:o},o)},t=>e(t))):this.isNode()&&(this.initGotEnv(t),this.got(t).on("redirect",(t,e)=>{try{if(t.headers["set-cookie"]){const s=t.headers["set-cookie"].map(this.cktough.Cookie.parse).toString();this.ckjar.setCookieSync(s,null),e.cookieJar=this.ckjar}}catch(t){this.logErr(t)}}).then(t=>{const{statusCode:s,statusCode:i,headers:r,body:o}=t;e(null,{status:s,statusCode:i,headers:r,body:o},o)},t=>{const{message:s,response:i}=t;e(s,i,i&&i.body)}))}post(t,e=(()=>{})){if(t.body&&t.headers&&!t.headers["Content-Type"]&&(t.headers["Content-Type"]="application/x-www-form-urlencoded"),t.headers&&delete t.headers["Content-Length"],this.isSurge()||this.isLoon())this.isSurge()&&this.isNeedRewrite&&(t.headers=t.headers||{},Object.assign(t.headers,{"X-Surge-Skip-Scripting":!1})),$httpClient.post(t,(t,s,i)=>{!t&&s&&(s.body=i,s.statusCode=s.status),e(t,s,i)});else if(this.isQuanX())t.method="POST",this.isNeedRewrite&&(t.opts=t.opts||{},Object.assign(t.opts,{hints:!1})),$task.fetch(t).then(t=>{const{statusCode:s,statusCode:i,headers:r,body:o}=t;e(null,{status:s,statusCode:i,headers:r,body:o},o)},t=>e(t));else if(this.isNode()){this.initGotEnv(t);const{url:s,...i}=t;this.got.post(s,i).then(t=>{const{statusCode:s,statusCode:i,headers:r,body:o}=t;e(null,{status:s,statusCode:i,headers:r,body:o},o)},t=>{const{message:s,response:i}=t;e(s,i,i&&i.body)})}}time(t){let e={"M+":(new Date).getMonth()+1,"d+":(new Date).getDate(),"H+":(new Date).getHours(),"m+":(new Date).getMinutes(),"s+":(new Date).getSeconds(),"q+":Math.floor(((new Date).getMonth()+3)/3),S:(new Date).getMilliseconds()};/(y+)/.test(t)&&(t=t.replace(RegExp.$1,((new Date).getFullYear()+"").substr(4-RegExp.$1.length)));for(let s in e)new RegExp("("+s+")").test(t)&&(t=t.replace(RegExp.$1,1==RegExp.$1.length?e[s]:("00"+e[s]).substr((""+e[s]).length)));return t}msg(e=t,s="",i="",r){const o=t=>{if(!t)return t;if("string"==typeof t)return this.isLoon()?t:this.isQuanX()?{"open-url":t}:this.isSurge()?{url:t}:void 0;if("object"==typeof t){if(this.isLoon()){let e=t.openUrl||t.url||t["open-url"],s=t.mediaUrl||t["media-url"];return{openUrl:e,mediaUrl:s}}if(this.isQuanX()){let e=t["open-url"]||t.url||t.openUrl,s=t["media-url"]||t.mediaUrl;return{"open-url":e,"media-url":s}}if(this.isSurge()){let e=t.url||t.openUrl||t["open-url"];return{url:e}}}};this.isMute||(this.isSurge()||this.isLoon()?$notification.post(e,s,i,o(r)):this.isQuanX()&&$notify(e,s,i,o(r)));let h=["","==============\ud83d\udce3\u7cfb\u7edf\u901a\u77e5\ud83d\udce3=============="];h.push(e),s&&h.push(s),i&&h.push(i),console.log(h.join("\n")),this.logs=this.logs.concat(h)}log(...t){t.length>0&&(this.logs=[...this.logs,...t]),console.log(t.join(this.logSeparator))}logErr(t,e){const s=!this.isSurge()&&!this.isQuanX()&&!this.isLoon();s?this.log("",`\u2757\ufe0f${this.name}, \u9519\u8bef!`,t.stack):this.log("",`\u2757\ufe0f${this.name}, \u9519\u8bef!`,t)}wait(t){return new Promise(e=>setTimeout(e,t))}done(t={}){const e=(new Date).getTime(),s=(e-this.startTime)/1e3;this.log("",`\ud83d\udd14${this.name}, \u7ed3\u675f! \ud83d\udd5b ${s} \u79d2`),this.log(),(this.isSurge()||this.isQuanX()||this.isLoon())&&$done(t)}}(t,e)}
-
