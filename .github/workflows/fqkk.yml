@@ -3,12 +3,12 @@
 #   branches: 
 #   - master 
 
-name: 步步宝
+name: 番茄看看
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/30 0-23/1 * * *'
+     - cron: '3 11-23/1 * * *'
   watch:
      types: started
     
