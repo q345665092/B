@@ -4,12 +4,12 @@
 #   branches: 
 #   - master 
 
-name: 步步宝
+name: 云扫码
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/30 0-23/1 * * *'
+     - cron: '35 11-23/1 * * *'
   watch:
      types: started
     
