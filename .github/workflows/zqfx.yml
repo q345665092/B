@@ -3,7 +3,7 @@
 #   branches: 
 #   - master 
 
-name: 番茄看看
+name: zqfx
 
 on:
   workflow_dispatch:
