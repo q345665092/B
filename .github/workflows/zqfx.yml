@@ -1,38 +1,30 @@
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-# push:
-#   branches: 
-#   - master 
-
-name: zqfx
+name: 中青邀请阅读
 
 on:
   workflow_dispatch:
-  schedule:
-     - cron: '3 11-23/1 * * *'
   watch:
-     types: started
-    
+    types: started
+  schedule:
+    - cron: '17 0 * * *'
 jobs:
   build:
-    runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id
+    runs-on: ubuntu-latest    
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 10.x
+      - name: Checkout
+        run: |
+          git clone https://github.com/LxgLxgLxg/Youthshare.git ~/Youthshare
+      - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: 10.x
+          node-version: 14.x
       - name: npm install
         run: |
+          cd ~/Youthshare
           npm install
-      - name: '运行 【zhongq】'
+          npm install cron
+          npm install request
+          npm install md5-node
+      - name: '运行 【中青邀请阅读】'
         run: |
+          cd ~/Youthshare
           node Task/zqfx.js
-        env:
-          BBB_bububaoTOKEN: ${{ secrets.BBB_bububaoTOKEN }}
-          PUSH_KEY: ${{ secrets.PUSH_KEY }}
-          BARK_PUSH: ${{ secrets.BARK_PUSH }}
-          TXNEWS_NOTIFY_CONTROL: ${{ secrets.TXNEWS_NOTIFY_CONTROL }}
-          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-          TG_USER_ID: ${{ secrets.TG_USER_ID }}
-          BARK_SOUND: ${{ secrets.BARK_SOUND }}
