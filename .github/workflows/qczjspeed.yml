@@ -1,28 +1,28 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# push:
+#   branches: 
+#   - master 
 
-name: qczjspeed@ziye3
+name: 小乐
 
 on:
-    workflow_dispatch:
-    schedule:
-      - cron: "*/10 0-23/1 * * *"
-    watch:
-      types: [started]
-    repository_dispatch:
-      types: qczjspeed
-
+  workflow_dispatch:
+  schedule:
+     - cron: '30 0-23/1 * * *'
+  watch:
+     types: started
+    
 jobs:
   build:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Use Node.js 12.x
+      - uses: actions/checkout@v1
+      - name: Use Node.js 10.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 10.x
       - name: npm install
         run: |
           npm install
@@ -30,10 +30,11 @@ jobs:
         run: |
           node Task/qczjspeed.js
         env:
+          XL_URL: ${{ secrets.XL_URL }}
+          XL_HEADER: ${{ secrets.XL_HEADER }}
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
-          BARK_SOUND: ${{ secrets.BARK_SOUND }}
+          TXNEWS_NOTIFY_CONTROL: ${{ secrets.TXNEWS_NOTIFY_CONTROL }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
-          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
-          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
