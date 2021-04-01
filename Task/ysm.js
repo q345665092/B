@@ -1,6 +1,6 @@
 /*
 软件名称:云扫码 微信扫描二维码打开
-更新时间：2021-03-26 @肥皂
+更新时间：2021-03-31 @肥皂
 脚本说明：云扫码自动阅读
 脚本为自动完成云扫码的阅读任务
 每日收益1元左右，可多号撸。提现秒到
@@ -31,6 +31,7 @@ TG电报群: https://t.me/hahaha8028
 
 3.26更新，云扫码多账号更新优化，加入多账号并发执行，获取ck方式改为和番茄看看一样的方式，不用手动选择抓包账号几，加入通知开关和首次阅读开关限制，自定义提现金额，比例为1:10000，最低提现金额为0.3元，即填写提现金额最少填写3000，注意需要重新更改重写的链接，请在下方获取替换以前的重写，该版本为@ztxtop大佬提交的pr。感谢大佬
 
+3.31更新,修复官方域名更换无法正常跑脚本的问题，请更换一下重写重新抓包
 PS:
 一般两篇文章过后还能阅读那么当天一般都能跑满任务的，需要手动阅读两篇的原因是和番茄看看一样，前两篇文章是调用微信接口鉴权的(这个没有办法解决)，鉴权通过可以继续阅读，不通过则限制阅读(如果你不手动阅读鉴权,直接跑脚本很大几率直接就限制了)，云扫码和番茄看看鉴权通过的话是不会有任务冲突的，一般情况下这两个平台手动阅读了两篇文章都能跑满全部任务。阅读三兄弟的微客众智则不需要手动阅读可以直接跑脚本(可惜ck过期太快，但是不会限制，我的ck最长坚持了四天，有些人就只能坚持一天，建议微客众智的重写保持开启状态。)
 
@@ -48,32 +49,27 @@ https://raw.githubusercontent.com/age174/-/main/feizao.box.json
 
 [rewrite_local]
 #云扫码
-^http://erd.+?/yunonline/v\d+/redirect/(?!undefined) url script-request-header https://raw.githubusercontent.com/age174/-/main/ysm.js
+^http://.+?[^/]/yunonline/v\d+/redirect/(?!undefined) url script-request-header https://raw.githubusercontent.com/age174/-/main/ysm.js
 
 
 
 #loon
-^http://erd.+?/yunonline/v\d+/redirect/(?!undefined) script-path=https://raw.githubusercontent.com/age174/-/main/ysm.js, requires-body=true, timeout=10, tag=云扫码
+^http://.+?[^/]/yunonline/v\d+/redirect/(?!undefined) script-path=https://raw.githubusercontent.com/age174/-/main/ysm.js, requires-body=true, timeout=10, tag=云扫码
 
 
 
 #surge
 
-云扫码 = type=http-request,pattern=^http://erd.+?/yunonline/v\d+/redirect/(?!undefined),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/age174/-/main/ysm.js,script-update-interval=0
-
-
-
-
-[MITM]
-hostname = .*.top
+云扫码 = type=http-request,pattern=^http://.+?[^/]/yunonline/v\d+/redirect/(?!undefined),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/age174/-/main/ysm.js,script-update-interval=0
 
 
 */
 
 const $ = new Env('云扫码')
-let ysm = $.getjson('ysm', [  {    "openid": "oksnzwYPt_s68v9BfVOadXRSnQLo",    "domain": "http://erd.gmhrr.bar/yunonline/v1/",    "secret": "eyJpdiI6IlwvZ1B1dGFnVzkyQTJhR1JvcnE0aHdBPT0iLCJ2YWx1ZSI6ImpNMDdzWm9CWEcwWEo2dzRncytSWW9mTXpqXC9PVzlrUXBOWmdCVENhZWl0YlZqZVM4azBNZHFnNlVWeWVcL2o4VkRwUXpqeXlOTVZid0RTMnI4WnBTdG5ROVRBWkxlYTloTWozSlZlS2tFS2VBYkRWN25iRHRyb000V0ZWRUptSkRnVjRPd1ZuN3dUYVc4aldNVWswTHBhXC9VaDlSRUdYck9KZVgrMmFKQlJvYlhlMkpaR3dPbWF1ZThmNDR5bDNjXC84bUx4WW5YcVFkYkJnXC93T1NJNHQza3JZQ3V2ZUlUS1lqTCtpUEpCOGhmWHp5N09lb3hOSWZkXC9IRVRtZTduREFhbEhkbnFuck9ldkJVZ0xVU2xTVkJlUkVydjdTa0tIb3EyZ0pqWERoVFQwPSIsIm1hYyI6ImI1NTJlZDhmNTcyNjViM2UzZjVlZjgzMGMyNTM2MDU3M2JhYThlNzA2OTQ1NmM0ODVhZjJmNTBlZWM3YjQxZTMifQ%3D%3D",    "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.2(0x18000234) NetType/4G Language/zh_CN",    "txbody": "openid=oksnzwYPt_s68v9BfVOadXRSnQLo&request_id=0c947ac7cda28958dacdc9df8934def1&ua=1"  }])
+let ysm = $.getjson('ysm', [  {    "openid": "oksnzwYPt_s68v9BfVOadXRSnQLo",    "domain": "http://aaa.saomayun.cn/yunonline/v1/",    "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.3(0x18000326) NetType/WIFI Language/zh_CN",    "secret": "eyJpdiI6InhGR25WbUE3RllXaFpTZVUyTGtIMVE9PSIsInZhbHVlIjoiVFh1Zml3aWUxbGVOZUorUlFnZFQ5VTN4djFLYndEU1BwYllCSDBJRkl4NGNLdXNUakY2ams1UmNYZ1oyVG1LSENQSnl5QmZjVTFPdU91OXBRNlRwZFV3Z2xvY2ZiTEVjSTZaSHU0cjdIVUZLWVpCcEtEVCt2NXFmUFJIWmRPaUdKZDJyalNCZjRIZXRwVWVJTUs1NXRhc3Zhc1NaVHpoelRTeWQ3eDM0VGF3eXR2QWw4SFdWeTlnTUFDblMxaFwvQUZ5NHBXYkcwNWhaK1JacWhITStyNnR2NmhURXhpK2dnWGl5ekZWcmdsTHBcL1FDaGhJRVVZTmZTb0lJOWZYUDlDZ1F2Y09IaUZ4SW5jRGtyZkF3Q0IwVCtGb1NpM2RHTTRCRVNIcWxmOUZGQk1TM2lMZTArZ1FxRjZsMkVrRGdFbFwvaXhXc2VQRkJXSTl6TTcwSnFXT2gzOGxLQ0VZamJ4N0ZHRXM3dEJVWFJacmx1b3Iyc0J0eDFlQWFYNDhvZkFCXC83WXhmTEYyWFcyWlwvblNySVwvVStIZz09IiwibWFjIjoiZTNhNWUzZmRlYjMyZTgxNzZjNjkzZjM0MTRkNDdiMzk5NmFjZDBmNTgwODVjZTI0YWFjMTM2YzMxYTYwMzgyYiJ9",    "txbody": "openid=oksnzwYPt_s68v9BfVOadXRSnQLo&request_id=31c61f7c060d10f7dd82365bdb85d77b&ua=1"  }])
 let needNotice = $.getval('ysmNotice') == 'true'
 let ysmBanfirstTask = $.getval('ysmBanfirstTask') == 'true' // 禁止脚本执行首个任务，避免每日脚本跑首次任务导致微信限制
+let ysmBanhalfTask = $.getval('ysmBanhalfTask') == 'true' // 脚本执行完第50个任务时退出任务，再手动阅读2篇避免出现微信限制
 let ysmtxAmt = ($.getval('ysmtxAmt') || '0') - 0  // 此处修改提现金额，0.3元等于3000币，默认不提现
 ysmtxAmt = ysmtxAmt > 3000 ? (parseInt(ysmtxAmt / 1000) * 1000) : ysmtxAmt > 0 ? 3000 : 0
 let concurrency = ($.getval('ysmConcurrency') || '1') - 0 // 并发执行任务的账号数，默单账号循环执行
@@ -125,7 +121,7 @@ function execTask(ac, i) {
     try {
       await $.wait(i * 50)
       await ysm4(ac)
-      if ((!execNo || (execNo.length == 0 || execNo.includes(ac.no))) && ac.remain_read && !(ac.day_read < 2 && ysmBanfirstTask)) {
+      if ((!execNo || (execNo.length == 0 || execNo.includes(ac.no))) && ac.remain_read && !(ac.day_read < 2 && ysmBanfirstTask) && !(ysmBanhalfTask && ac.day_read == 50)) {
         $.log(`😄账号${ac.no}今日已读${ac.day_read}次，今日待读${ac.remain_read}次，即将阅读`)
         await $.wait((i + 1) * 600)
         let flag = 0
@@ -201,9 +197,11 @@ function getExecAcList() {
 async function ysmck() {
   const url = $request.url
   let newAc = ''
-  if (url.match(/https?:\/\/.+\/yunonline\/v\d+\/redirect\/(?!undefined)/)) {
+  if (url.match(/https?:\/\/.+?[^/]\/yunonline\/v\d+\/redirect\/(?!undefined)/) || url.match(/https?:\/\/.+?[^/]\/yunonline\/v\d+\/exchange\?/)) {
+    let hd = {...$request.headers}
+    let data = (hd['Referer'] || hd['referer'] || '').match(/^https?:\/\/.+?[^/]\/yunonline\/v\d+\/redirect\/(?!undefined).+$/)
     let no = ysm.length
-    newAc = await updateAndGetCk(no + 1, url, $request.headers)
+    newAc = await updateAndGetCk(no + 1, data && data[0] || url, hd)
     if (newAc) {
       let status = 1
       for (let i = 0, len = no; i < len; i++) {
@@ -265,18 +263,13 @@ async function ysmckMove() {
   let ysmcount = ($.getval('ysmcount') || '1') - 0
   for (let i = 1; i <= ysmcount; i++) {
     let hd = $.getjson(`ysmhd${i>1?i:''}`)
-    let tx = $.getdata(`ysmtx${i>1?i:''}`)
     if (hd) {
-      let data = (hd['Referer'] || hd['referer'] || '').match(/^(https?:\/\/.+?\/)redirect\/(.+?)\?openid=([^&]*)(&|$)/)
-      let openid = data && data[3]
-      if (openid) {
-        ysmArr.push({
-          openid: openid,
-          domain: data[1],
-          secret: data[2],
-          ua: hd['User-Agent'] || hd['user-agent'],
-          txbody: tx || ''
-        })
+      let data = (hd['Referer'] || hd['referer'] || '').match(/^https?:\/\/.+?[^/]\/yunonline\/v\d+\/redirect\/(?!undefined).+$/)
+      if (data) {
+        let newAc = await updateAndGetCk(i, data[0], hd)
+        if (newAc) {
+          ysmArr.push(newAc)
+        }
       }
     }
   }
@@ -347,6 +340,9 @@ function ysm3(ac, time) {
             if (ac.remain_read <= 0) {
               f = 0
               $.msg(`${$.name}: 账号${ac.no}`, '', `今日阅读已达上限，请明日继续`)
+            } else if (ysmBanhalfTask && ac.day_read == 50) {
+              f = 0
+              $.msg(`${$.name}: 账号${ac.no}`, '', `今日已阅读50篇，请手动阅读2篇再跑脚本`)
             } else {
               f = 1
             }
@@ -381,10 +377,6 @@ function ysm2(ac, jumpLink, flag = 0) {
           $.logErr(`❌ 账号${ac.no} API请求失败，请检查网络后重试\n url: ${opts.url} \n data: ${JSON.stringify(err, null, 2)}`)
         } else {
           rtObj = $.toObj(data, {})
-          if (flag && rtObj && rtObj.url) {
-            // 尝试访问需要重定向的第三方接口地址
-            await ysm2(ac, rtObj.url)
-          }
         }
       } catch (e) {
         $.logErr(`======== 账号 ${ac.no} ========\nurl: ${opts.url}\nerror:${e}\ndata: ${resp && resp.body}`)
@@ -408,6 +400,9 @@ function ysm1(ac, count) {
       try {
         if (err) {
           $.logErr(`❌ 账号${ac.no} API请求失败，请检查网络后重试\n url: ${opts.url} \n data: ${JSON.stringify(err, null, 2)}`)
+        } else if (count > 55) {
+          f = -3
+          $.msg($.name, `账号${ac.no}`, `本阶段阅读循环次数过多，可能接口返回异常数据导致脚本死循环了，终止脚本运行`)
         } else {
           const result = JSON.parse(data)
           if (result.errcode == 0 && result.data && result.data.link) {
@@ -423,6 +418,9 @@ function ysm1(ac, count) {
               $.log(`🌝账号${ac.no}jump接口请求失败，重新执行阅读任务`)
               await $.wait(1500)
             }
+          } else if (data == '{"errcode":0,"msg":"success"}') {
+            $.logErr(`🚫账号${ac.no}：🧼来自肥皂的提示:当前没有任务啊,手动进云扫码看看是不是一直显示更新中,别问肥皂什么原因啦～`)
+            f = -3
           } else {
             $.logErr(`🚫账号${ac.no}：获取key回执失败：${(result.data && result.data.msg) || result.msg}`)
             if (((result.data && result.data.msg) || result.msg) == '请一个小时后再来') {
