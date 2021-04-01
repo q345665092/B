@@ -69,9 +69,9 @@ hostname = m.*
 
 
 const $ = new Env('番茄看看');
-const fqkkurlArr = ['http://m.ideng.ren/reada/getTask'], fqkkhdArr = ['{\"Accept\":\"*/*\",\"Accept-Encoding\":\"gzip, deflate\",\"Origin\":\"http://m.ideng.ren\",\"Cookie\":\"autoRead=1; udtauth=0c11nvqYEXmBEntK%2Bq17D%2F7DuF8FCM00O3AelaaZplu%2BKgvBy5p1wqjUVL%2F11lcCxenFoVFDq%2Fb%2B8jVTRJKODHD4ensBSNmtRGh0mqELO3%2Fgj3WpoNASXw2ejERcCrcpWzH%2FOHbg4sY4hhRTo89lSouNrGG%2Bk5U5geeYw1s5w2M; PHPSESSID=nvlqalh2dtpt5lpud3eddshku7\",\"Connection\":\"keep-alive\",\"Host\":\"m.ideng.ren\",\"Content-Length\":\"0\",\"User-Agent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.2(0x18000239) NetType/WIFI Language/zh_CN\",\"Referer\":\"http://m.ideng.ren/reada?upuid=3950781\",\"Accept-Language\":\"zh-cn\",\"X-Requested-With\":\"XMLHttpRequest\"}']
+const fqkkurlArr = [], fqkkhdArr = []
 let fqkk = $.getjson('fqkk', [  {    "uid": 3964229,    "url": "http://m.ideng.ren/reada/getTask",    "hd": "{\"Accept\":\"*/*\",\"Accept-Encoding\":\"gzip, deflate\",\"Origin\":\"http://m.ideng.ren\",\"Cookie\":\"autoRead=1; udtauth=0c11nvqYEXmBEntK%2Bq17D%2F7DuF8FCM00O3AelaaZplu%2BKgvBy5p1wqjUVL%2F11lcCxenFoVFDq%2Fb%2B8jVTRJKODHD4ensBSNmtRGh0mqELO3%2Fgj3WpoNASXw2ejERcCrcpWzH%2FOHbg4sY4hhRTo89lSouNrGG%2Bk5U5geeYw1s5w2M; PHPSESSID=nvlqalh2dtpt5lpud3eddshku7\",\"Connection\":\"keep-alive\",\"Host\":\"m.ideng.ren\",\"Content-Length\":\"0\",\"User-Agent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.2(0x18000239) NetType/WIFI Language/zh_CN\",\"Referer\":\"http://m.ideng.ren/reada?upuid=3950781\",\"Accept-Language\":\"zh-cn\",\"X-Requested-With\":\"XMLHttpRequest\"}"  }])
-let fqkkBanfirstTask = $.getval('fqkkBanfirstTask') || 'true' // 禁止脚本执行首个任务，避免每日脚本跑首次任务导致微信限制
+let fqkkBanfirstTask = $.getval('fqkkBanfirstTask') || 'false' // 禁止脚本执行首个任务，避免每日脚本跑首次任务导致微信限制
 let fqkkCkMoveFlag = $.getval('fqkkCkMove') || ''
 let fqtx = ($.getval('fqtx') || '100');  // 此处修改提现金额，0.3元等于30，默认为提现一元，也就是100
 let concurrency = ($.getval('fqkkConcurrency') || '1') - 0; // 并发执行任务的账号数，默单账号循环执行
@@ -102,12 +102,12 @@ let fqkktz = ''
       for (let ac of rtList) {
         let msg = '';
         if (ac.uid && ac.gold >= fqtx) {
-          $.log('检测到账号${ac.no}已满足设置的提现金额，前去执行提现任务\n')
+          $.log(`检测到账号${ac.no}已满足设置的提现金额，前去执行提现任务\n`)
           msg = await fqkktx(ac);
         }
         ac.msg = msg;
       }
-      fqkktz += rtList.map(ac => `【账号${ac.no}】\n余额：${ac.gold}币\n今日奖励：${ac.score}\n已阅读数：${ac.num}\n待阅读数：${ac.rest}${ac.msg?'\n'+ac.msg:''}`).join('\n\n');
+      fqkktz += rtList.map(ac => `\n【账号${ac.no}】\n余额：${ac.gold}币\n今日奖励：${ac.score}\n已阅读数：${ac.num}\n待阅读数：${ac.rest}${ac.msg?'\n'+ac.msg:''}`).join('\n');
     }
   $.log('\n======== [脚本运行完毕,打印日志结果] ========\n'+fqkktz)  }
 })()
@@ -120,8 +120,12 @@ function execTask(ac, i) {
       try {
         let msg = await fqkk3(ac, '');
         if (ac.rest) {
-          if (ac.rest <= 0 || (ac.num <= 0) + '' == fqkkBanfirstTask) {
-            $.log(`账号${ac.no}今日已阅读${ac.num}次，本阶段待阅读${ac.rest}次，跳过阅读`);
+   let skip = false;
+if(fqkkBanfirstTask == 'true' && ac.num <= 0){
+        skip = true;
+}
+          if (ac.rest <= 0 || skip) {
+            $.log(`账号${ac.no}今日已阅读${ac.num}次，本阶段待阅读${ac.rest}次，跳过阅读，\n您已开启了限制脚本首次阅读，请前去扫码手动阅读一次，如需关闭该功能请前往Boxjs关闭限制脚本跑每日首次任务`);
           } else {
             $.log(`账号${ac.no}今日已阅读${ac.num}次，本阶段待阅读${ac.rest}次，开始阅读\n`);
             let flag = 0;
@@ -182,6 +186,8 @@ async function fqkkck() {
       }
       fqkk[no] = {uid: userId, url: fqkkurl, hd: fqkkhd};
       $.setdata(JSON.stringify(fqkk, null, 2), 'fqkk');
+      $.log(fqkkhd)
+      $.log(fqkkurl)
       $.msg($.name, "", `番茄看看[账号${no+1}] ${status?'新增':'更新'}数据成功！`);
     } else {
       // 未获取到用户ID，提示
@@ -268,7 +274,9 @@ function fqkk3(ac, fqkey) {
             ac.rest = (result.data.infoView.rest || 0) - 0;
             ac.num = (result.data.infoView.num || 0) - 0;
             ac.score = (result.data.infoView.score || 0) - 0;
-            msg = ac.rest > 0 ? '-' : (result.data.infoView.msg || msg);
+            msg = ac.rest > 0 ? '-' : (result.data.infoView.msg || result.msg || msg);
+          } else {
+            msg = result.msg || msg;
           }
           if (fqkey) {
             if (result.code == 0) {
@@ -278,6 +286,9 @@ function fqkk3(ac, fqkey) {
               $.log(`🚫账号${ac.no}：${result.msg}`, `今日阅读次数: ${result.data.infoView.num}, 今日阅读奖励: ${result.data.infoView.score}`, `resp: ${JSON.stringify(resp||'', null, 2)}`);
             }
           }
+        }
+        if (msg == '未知问题') {
+          msg += `: ${data}`
         }
       } catch (e) {
         $.log(`======== 账号 ${ac.no} ========\nurl: ${opts.url}\ndata: ${resp && resp.body}`);
