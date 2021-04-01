@@ -4,12 +4,12 @@
 #   branches: 
 #   - master 
 
-name: 汽车之家
+name: 步步宝
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/30 0-23/1 * * *'
+     - cron: '*/20 0-23/1 * * *'
   watch:
      types: started
     
@@ -26,7 +26,7 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行 【汽车之家】'
+      - name: '运行 【汽车】'
         run: |
           node Task/qczjspeed.js
         env:
