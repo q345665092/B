@@ -106,8 +106,8 @@ let sdid = '';sdlqid = '';tc = 0
 function execTask(ac, i) {
   return new Promise(async resolve => {
     try {
-      await $.wait(i * 500)
-      for (let i = 0; i < 10; i++) {
+      await $.wait(i * 5000)
+      for (let i = 0; i < 100; i++) {
         if(tc == 1){
         return;
 }
