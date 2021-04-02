@@ -35,8 +35,8 @@ jobs:
         run: |
           node Task/zlztx.js
         env:
-          TX_TOKEN: ${{ secrets. TX_TOKEN }}
-          TX_KEY: ${{ secrets. TX_KEY }}
+          TXTOKEN: ${{ secrets. TXTOKEN }}
+          TXKEY: ${{ secrets. TXKEY }}
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
