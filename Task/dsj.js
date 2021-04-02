@@ -15,8 +15,8 @@ let sleeping = "",
 let RewardId = $.getdata('REWARD') || '55'; //额外签到奖励，默认55为兑换0.2元额度，44为兑换1天VIP，42为兑换1888金币
 const dianshijia_API = 'http://api.gaoqingdianshi.com/api'
 let tokenArr = [],
-    DsjurlArr = ['{"Accept-Encoding":"gzip, deflate","AppVerCode":"181","userid":"230d797c362d14b23a84c9ef43ad3acf","language":"zh_CN","Host":"api.gaoqingdianshi.com","AppVerName":"1.81","HwDevice":"Iphone","hwModel":"iPhone11,8","hwBrand":"iPhone","HwId":"eec1a78062e344819c11fc0c935ae328","countryCode":"CN","ssid":"82ae2809-4c3a-4a80-b222-590bc3334c5b","Connection":"keep-alive","uuid":"eec1a78062e344819c11fc0c935ae328","Cache-Control":"no-cache","ispId":"","Accept-Language":"zh-Hans;q=1","User-Agent":"Dsj/Client1.2","MarketChannelName":"Iphone","hwMac":"","Generation":"com.dianshijia.mobile.ios","Accept":"*/*","Authorization":"WmpJME5Ua3hZalJoTmpKak5ESm1abU5qTURGbU56WmpNalEyTXpsak5EUT18MTYxMDA3NjAxOTEwMDU2MDcwM3xmMWQyZDkxN2EzY2Y0YTFkNWY5ZjczNjY3YWUzZmY0NzdmMjNkMmVm","appId":"19227f89ea1a166451593601eb8a1b4f","cityCode":"","erid":"43556","routerMac":"","ethMac":"","Cookie":"beegosessionID=137ea7669a7082b5b5cdf21f4fef9910","areaCode":"320000","gpsCityCode":"320300"}'],
-    DrawalArr = ['http://api.gaoqingdianshi.com/api/v2/cash/withdrawal?code=randTx&rs=w2QL0kyQxuo37OYcxtEK1Xm1Mm2p&sign=f1e613271a8c58ad765e8161854fa6ed'],
+    DsjurlArr = [],
+    DrawalArr = [],
     drawalCode = "";
 if ($.isNode()) {
     if (process.env.DSJ_HEADERS && process.env.DSJ_HEADERS.indexOf('#') > -1) {
