@@ -1,0 +1,30 @@
+name: 中青
+
+on:
+  workflow_dispatch:
+  watch:
+    types: started
+  schedule:
+    - cron: '17 0,8,7,10 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest    
+    steps:
+      - name: Checkout
+        run: |
+          git clone https://github.com/niubi-66/B.git ~/B
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: npm install
+        run: |
+          cd ~/B
+          npm install
+          npm install cron
+          npm install request
+          npm install md5-node
+      - name: '运行 【中青】'
+        run: |
+          cd ~/B
+          node Task/zqjs.js
