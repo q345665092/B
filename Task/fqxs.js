@@ -124,7 +124,7 @@ if($request&&$request.url.indexOf("sign_in")>=0) {
 async function task_list(){
  return new Promise((resolve) => {
     let task_list_url = {
-   	url: `https://${host}/luckycat/novel/v1/task/list?${fqxsurl}polaris_page=client_task_page&new_bookshelf=1`,
+   	url: `https://i.snssdk.com/luckycat/novel/v1/task/list?${fqxsurl}polaris_page=client_task_page&new_bookshelf=1`,
     	headers: JSON.parse(fqxs),
     	}
    $.get(task_list_url,async(error, response, data) =>{
@@ -183,7 +183,7 @@ async function task_list(){
 async function sign_in(){
  return new Promise((resolve) => {
     let sign_in_url = {
-   	url: `https://${host}/luckycat/novel/v1/task/done/sign_in?${fqxsurl}`,
+   	url: `https://i.snssdk.com/luckycat/novel/v1/task/done/sign_in?${fqxsurl}`,
     	headers: JSON.parse(fqxs),
     	body: `{}`
     	}
@@ -217,7 +217,7 @@ async function sign_in(){
 async function read(){
  return new Promise((resolve) => {
     let read_url = {
-   	url: `https://${host}/luckycat/novel/v1/task/done/daily_read_${no}m?${fqxsurl}`,
+   	url: `https://i.snssdk.com/luckycat/novel/v1/task/done/daily_read_${no}m?${fqxsurl}`,
     	headers: JSON.parse(fqxs),
     	body: `{
   "new_bookshelf" : true,
@@ -254,7 +254,7 @@ async function read(){
 async function ad(){
  return new Promise((resolve) => {
     let ad_url = {
-   	url: `https://${host}/luckycat/novel/v1/task/done/excitation_ad?${fqxsurl}`,
+   	url: `https://i.snssdk.com/luckycat/novel/v1/task/done/excitation_ad?${fqxsurl}`,
     	headers: JSON.parse(fqxs),
     	body: `{
   "new_bookshelf" : true,
