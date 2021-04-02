@@ -19,18 +19,18 @@ jobs:
     steps:
       - name: Checkout
         run: |
-          git clone https://github.com/niubi-66/B.git ~/scripts
+          git clone https://github.com/niubi-66/B.git ~/B
       - name: Use Node.js 10.x
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
       - name: npm install
         run: |
-          cd ~/scripts
+          cd ~/B
           npm install
       - name: '运行 【抖音火山版】'
         run: |
-          cd ~/scripts
+          cd ~/B
           node dyhs.js
         env:
           HSURL: ${{ secrets.HSURL }}
