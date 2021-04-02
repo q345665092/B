@@ -31,7 +31,7 @@ jobs:
       - name: '运行 【抖音火山版】'
         run: |
           cd ~/B
-          node dyhs.js
+          node Task/dyhs.js
         env:
           HSURL: ${{ secrets.HSURL }}
           HSHEADER: ${{ secrets.HSHEADER }}
