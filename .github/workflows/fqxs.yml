@@ -35,7 +35,7 @@ jobs:
            npm install
       - name: '运行 【番茄小说】'
         run: |
-          cd ~/TaskAction/workflow	
+          cd ~/B
           node fqxs.js
         env:
           TZ: Asia/shanghai
