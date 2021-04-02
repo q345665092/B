@@ -33,10 +33,10 @@ jobs:
           cd ~/scripts
           node Task/zqjs.js
         env:
-          YOUTH_HEADER: ${{ secrets.YOUTH_HEADER }}
-          YOUTH_ARTBODY: ${{ secrets.YOUTH_ARTBODY }}
-          YOUTH_REDBODY: ${{ secrets.YOUTH_REDBODY }}
-          YOUTH_TIME: ${{ secrets.YOUTH_TIME }}
+          youthheader_zq: ${{ secrets. youthheader_zq }}
+          read_zq: ${{ secrets. read_zq }}
+          readtime_zq: ${{ secrets. readtime_zq }}
+          zq_nick: ${{ secrets. zq_nick }}
           
           #微信酱
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
