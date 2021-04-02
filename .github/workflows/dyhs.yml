@@ -1,12 +1,12 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: 抖音火山版
+name: huoshan 抖音火山版
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/10 0-23/1* * *'
+    - cron: '*/10 15-22 * * *'
   watch:
     types: started
   repository_dispatch:
@@ -19,18 +19,18 @@ jobs:
     steps:
       - name: Checkout
         run: |
-          git clone https://github.com/niubi-66/B.git ~/B
+          git clone https://github.com/2440194388/Wool-script.git ~/scripts
       - name: Use Node.js 10.x
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
       - name: npm install
         run: |
-          cd ~/B
+          cd ~/scripts
           npm install
       - name: '运行 【抖音火山版】'
         run: |
-          cd ~/B
+          cd ~/scripts
           node Task/dyhs.js
         env:
           HSURL: ${{ secrets.HSURL }}
