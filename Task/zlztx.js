@@ -31,16 +31,16 @@ let today1 = formatDateTime(new Date());
 let today2 = formatDateTime(todaytimes);
 
 //////////////////////////////////////////////////////////////////
-const runsteptokenArr = [];
+const runsteptokenArr = ['token=4d5f3497-ce4c-4cc3-bd06-37f964c7ffbc'];
 let runsteptokenVal = "";
 
-const runstepkeyArr = [];
+const runstepkeyArr = ['{"User-Agent":"zou lu zhuan qian/1.5.1 (iPhone; iOS 14.4; Scale/2.00)","Host":"runstep.kujievip.com","Connection":"keep-alive","Accept-Language":"zh-Hans-CN;q=1","Accept-Encoding":"gzip, deflate, br","Accept":"*/*"}'];
 let runstepkeyVal = "";
 
-const txtokenArr = [];
+const txtokenArr = ['wx12b60cc9e37c9240&version'];
 let txtokenVal = "";
 
-const txkeyArr = [];
+const txkeyArr = ['{"Accept":"*/*","Accept-Encoding":"gzip, deflate, br","Connection":"keep-alive","Referer":"https://servicewechat.com/wx12b60cc9e37c9240/22/page-frame.html","Content-Type":"application/x-www-form-urlencoded","Host":"runstep.kujievip.com","User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.2(0x1800022e) NetType/WIFI Language/zh_CN","Accept-Language":"zh-cn"}'];
 let txkeyVal = "";
 
 if ($.isNode()) {
