@@ -25,7 +25,7 @@ hostname = sleep.zouluzhuan.com
 const $ = new Env('睡眠赚无限刷');
 let status;
 status = (status = ($.getval("ygkcstatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
-const ygkcurlArr = ['coin=9&device=ios&double=0&imei=50aca7086d14bc07e7fa469a25d202a03010b6b9&source=ios&uid=1286709&version=1.0.7'], ygkchdArr = ['{"Cookie":"UM_distinctid=1788e2aae43395-044890a6c837928-38176950-4a574-1788e2aae44a78; CNZZDATA1272182233=1483787504-1617289806-null%7C1617289806; PHPSESSID=94ef2a17c4322d8fec517fcf59a924de; sleep_zouluzhuan=sleep181","Accept":"*/*","Connection":"keep-alive","Content-Type":"application/x-www-form-urlencoded","Accept-Encoding":"gzip, deflate","Host":"sleep.zouluzhuan.com","User-Agent":"SMMon/1.0.7 (iPhone; iOS 14.4.2; Scale/2.00)","Content-Length":"109","Accept-Language":"zh-Hans-CN;q=1"}'],ygkccount = ''
+const ygkcurlArr = ['coin=5&device=ios&double=1&imei=50aca7086d14bc07e7fa469a25d202a03010b6b9&source=ios&uid=1286709&version=1.0.7'], ygkchdArr = ['{"Cookie":"PHPSESSID=507f52e8e8f43513f48504160d8a95f0; sleep_zouluzhuan=sleep181; CNZZDATA1278629079=1520488635-1617360645-%7C1617360645; UM_distinctid=1788e2aae43395-044890a6c837928-38176950-4a574-1788e2aae44a78; CNZZDATA1272182233=1483787504-1617289806-null%7C1617289806","Accept":"*/*","Connection":"keep-alive","Content-Type":"application/x-www-form-urlencoded","Accept-Encoding":"gzip, deflate","Host":"sleep.zouluzhuan.com","User-Agent":"SMMon/1.0.7 (iPhone; iOS 14.4.2; Scale/2.00)","Content-Length":"109","Accept-Language":"zh-Hans-CN;q=1"}'],ygkccount = ''
 let times = Math.round(Date.now() / 1000)
 let ygkcurl = $.getdata('ygkcurl')
 let ygkchd = $.getdata('ygkchd')
