@@ -38,7 +38,7 @@ jobs:
           npm install
       - name: '运行 【抖音火山版】'
         run: |
-          node dyhs.js
+          node Task/dyhs.js
         env:
           HSHEADER: ${{ secrets. HSHEADER }}
           HSBODY: ${{ secrets. HSBODY }}
