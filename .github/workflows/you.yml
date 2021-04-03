@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 #多帐号YOUTH_HEADER 用#号隔开，其它的用&隔开
-name: youth(中青看点)
+name: yout
 
 on:
   workflow_dispatch:
@@ -15,10 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        YOUTH_HEADER: ${{ secrets.YOUTH_HEADER }}
-        YOUTH_ARTBODY: ${{ secrets.YOUTH_ARTBODY }}
-        YOUTH_REDBODY: ${{ secrets.YOUTH_REDBODY }}
-        YOUTH_TIME: ${{ secrets.YOUTH_TIME }}
+        YOUTHHEADER_ZQ: ${{ secrets. YOUTHHEADER_ZQ }}
+        READ_ZQ: ${{ secrets. READ_ZQ }}
+        READTIME_ZQ: ${{ secrets. READTIME_ZQ }}
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 12.x
