@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-      
       USERHEADER: ${{ secrets.TXS_USERHEADER }}
       USERKEY: ${{ secrets.TXS_USERKEY }}
       SIGNHEADER: ${{ secrets.TXS_SIGNHEADER }}
