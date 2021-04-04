@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-      USERHEADER: ${{ secrets.TXS_USERHEADER }}
-      USERKEY: ${{ secrets.TXS_USERKEY }}
-      SIGNHEADER: ${{ secrets.TXS_SIGNHEADER }}
-      SIGNKEY: ${{ secrets.TXS_SIGNKEY }}
-      TASKHEADER: ${{ secrets.TXS_TASKHEADER }}
-      TASKKEY: ${{ secrets.TXS_TASKKEY }}
-      WXTASKKEY: ${{ secrets.TXS_WXTASKKEY }}
-      COWKEY: ${{ secrets.TXS_COWKEY }}
+      USERHEADER: ${{ secrets.USERHEADER }}
+      USERKEY: ${{ secrets.USERKEY }}
+      SIGNHEADER: ${{ secrets.SIGNHEADER }}
+      SIGNKEY: ${{ secrets.SIGNKEY }}
+      TASKHEADER: ${{ secrets.TASKHEADER }}
+      TASKKEY: ${{ secrets.TASKKEY }}
+      WXTASKKEY: ${{ secrets.WXTASKKEY }}
+      COWKEY: ${{ secrets.COWKEY }}
       PUSH_KEY: ${{ secrets.PUSH_KEY }}
       BARK_PUSH: ${{ secrets.BARK_PUSH }}
       BARK_SOUND: ${{ secrets.BARK_SOUND }}
