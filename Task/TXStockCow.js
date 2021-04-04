@@ -1,7 +1,6 @@
 /*
 **** 活动 ****
 活动长牛来啦cookie(cowkey):更新并启动微信重写https://raw.githubusercontent.com/CenBoMin/GithubSync/main/TXSTOCK/txs_wxcookie.conf,打开App,点击左上头像-进入，点击活动页面即可获取
-
 ！！！！！获取完cookie,务必关闭重写引用
 */
 
@@ -13,7 +12,7 @@ const notifyInterval = 1; //0为关闭通知，1为所有通知,默认为0
 let rndtime = Math.round(new Date().getTime()) //毫秒
 let signday = formatDateTime(new Date());
 let tz = '';
-let cash = $.getval('cash') || 5; //0为不自动提现,1为自动提现1元,5为自动提现1元,
+let cash = $.getval('cash') || 0; //0为不自动提现,1为自动提现1元,5为自动提现1元,
 
 const userheaderArr = [];
 let userheaderVal = "";
@@ -50,6 +49,59 @@ let COWKEY = [];
 
 
 if ($.isNode()) {
+ 
+  if (process.env.USERHEADER && process.env.USERHEADER.indexOf('\n') > -1) {
+   userheaderVal = process.env.USERHEADER.split('\n');
+   console.log(`USERHEADER您选择的是用换行隔开\n`)
+  }
+  else {
+  userheaderVal = [process.env.USERHEADER]
+  };
+  if (process.env.USERKEY && process.env.USERKEY.indexOf('\n') > -1) {
+   userkeyVal = process.env.USERKEY.split('\n');
+   console.log(`USERKEY您选择的是用换行隔开\n`)
+  } else {
+   userkeyVal = [process.env.USERKEY]
+  };
+  if (process.env.SIGNHEADER && process.env.SIGNHEADER.indexOf('\n') > -1) {
+   signheaderVal = process.env.SIGNHEADER.split('\n');
+   console.log(`SIGNHEADER您选择的是用换行隔开\n`)
+  } else {
+   signheaderVal = [process.env.SIGNHEADER]
+  };
+   if (process.env.SIGNKEY && process.env.SIGNKEY.indexOf('\n') > -1) {
+   signkeyVal = process.env.SIGNKEY.split('\n');
+   console.log(`SIGNKEY您选择的是用换行隔开\n`)
+  }
+  else {
+  signkeyVal = [process.env.SIGNKEY]
+  };
+  if (process.env.TASKHEADER && process.env.TASKHEADER.indexOf('\n') > -1) {
+   taskheaderVal = process.env.TASKHEADER.split('\n');
+   console.log(`TASKHEADER您选择的是用换行隔开\n`)
+  } else {
+   taskheaderVal = [process.env.TASKHEADER]
+  };
+  if (process.env.TASKKEY && process.env.TASKKEY.indexOf('\n') > -1) {
+   taskkeyVal = process.env.TASKKEY.split('\n');
+   console.log(`TASKKEY您选择的是用换行隔开\n`)
+  }
+  else {
+  taskkeyVal = [process.env.TASKKEY]
+  };
+  if (process.env.WXTASKKEY && process.env.WXTASKKEY.indexOf('\n') > -1) {
+   wxtaskkeyVal = process.env.WXTASKKEY.split('\n');
+   console.log(`WXTASKKEY您选择的是用换行隔开\n`)
+  } else {
+   wxtaskkeyVal = [process.env.WXTASKKEY]
+  };
+  if (process.env.COWKEY && process.env.COWKEY.indexOf('#') > -1) {
+   cowkeyVal = process.env.COWKEY.split('#');
+   console.log(`COWKEY您选择的是用#隔开\n`)
+  } else {
+   cowkeyVal = [process.env.COWKEY]
+  };
+
   Object.keys(userheaderVal).forEach((item) => {
     if (userheaderVal[item]) {
       userheaderArr.push(signheaderVal[item])
