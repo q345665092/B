@@ -40,9 +40,9 @@ function setSignData() {
   return new Promise((resolve) => {
     setTimeout( ()=>{
       let url = {
-        url : $.getdata('ttwksignurl'),
-        headers : JSON.parse($.getdata('ttwksignheader')),
-        body : $.getdata('ttwksignbody')
+        url : $.getdata('https://operation-api.jimistore.com/api/mining/v2/sign/createSign'),
+        headers : JSON.parse($.getdata('{"Accept-Encoding":"gzip, deflate, br","userid":"8a9d4aca7476ec7f017661d03dac0cd0","appid":"jimih5","sceneType":"alipayMiniPrograms","channelname":"miniwk_mrwktx","alipayMiniMark":"Hzp+BZSUbrre6kT5enobNN5jfG4EtkEYTXtSeKDY0WTqSyY6y8XSfpn887BG40tj16646VeUJ2UiWrWyXqbDa3Gx/kOt0hBXsx/uq3SHtL0=","Host":"operation-api.jimistore.com","verifyVersion":"2.0","appversion":"1.5.1","Connection":"keep-alive","signature":"9c9743331eaa93c2ed13d70cd04e2eb5","Accept-Language":"zh-CN,en-US;q=0.8","User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/18D52 Ariver/1.1.0 AliApp(AP/10.2.13.9000) Nebula WK RVKType(0) AlipayDefined(nt:4G,ws:414|896|2.0) AlipayClient/10.2.13.9000 Language/zh-Hans Region/CN NebulaX/1.0.0","Content-Type":"application/json","Referer":"https://2021001185608210.hybrid.alipay-eco.com/2021001185608210/0.2.2012311747.54/index.html#pages/home/home","signDate":"1611970455485","deviceid":"a370d5f1-8bcc-4e6b-94c9-43b216caef03","token":"eyJraWQiOiJhMzcwZDVmMS04YmNjLTRlNmItOTRjOS00M2IyMTZjYWVmMDMiLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4YTlkNGFjYTc0NzZlYzdmMDE3NjYxZDAzZGFjMGNkMCIsImlzcyI6IiIsImV4cCI6MTYxMzY5ODQ1MH0.oEK_J_4XYAT3tAIIBmuR7N6jpWR-I-FRdEXYzh6869c","timestamp":"1611970455485","Accept":"application/json","osversion":"OSVersion","ostype":"2","Accept-Charset":"utf-8","Cookie":"","Content-Length":"254"}')),
+        body : $.getdata('{"timestamp":1611970455485,"userId":"8a9d4aca7476ec7f017661d03dac0cd0","alipayUserId":"2088122624392111","phone":"18751616518","shareUserId":"","shareAlipayUserId":"","sharePhone":"","registerTime":1607958806000,"sign":"cfb5cc936282df1c6432af4d1b1f9696"}')
       }
       $.post(url, async (err, resp, data) => {
         try {
