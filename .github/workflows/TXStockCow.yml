@@ -3,13 +3,14 @@ name: 腾讯自选股养牛
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 3,7 * * *'
+    - cron: '30 3,7,15 * * *'
   
 jobs:
   build:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
+      
       USERHEADER: ${{ secrets.USERHEADER }}
       USERKEY: ${{ secrets.USERKEY }}
       SIGNHEADER: ${{ secrets.SIGNHEADER }}
