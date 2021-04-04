@@ -5,7 +5,7 @@ name: yout
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0/30 0-23 * * *'
+    - cron: '0/5 0-23 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
