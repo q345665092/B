@@ -3,7 +3,7 @@ name: zqkd
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/6 0-23/1 * * *'
+    - cron: '*/6 0-23 * * *'
   watch:
     types: [started]
 jobs:
