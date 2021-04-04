@@ -1,30 +1,36 @@
-# This is a basic workflow to help you get started with Actions
-
-name: jkd
-
+name: 聚看点
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/10 0-23 * * *'
+     - cron: '*/20 */2 * * *'
+  watch:
+    types: started
 jobs:
   build:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
+    env:
+        JUKAN_BODY: ${{ secrets.JUKAN_BODY }}
+        TZ: Asia/shanghai
     steps:
       - name: Checkout
-        run: |
-          git clone https://github.com/niubi-66/B.git ~/js
-      - name: Use Node.js 14.x
+        uses: actions/checkout@v2
+      - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 12.x
       - name: npm install
         run: |
-          cd ~/js
           npm install
-          npm install cron
-          npm install request
-      - name: '运行 【jkd】'
+      - name: '运行 【聚看点】'
+        if: env.JUKAN_BODY
         run: |
-          cd ~/js   
           node Task/jkd.js
+        env:
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          BARK_PUSH: ${{ secrets.BARK_PUSH }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_USER_ID: ${{ secrets.TG_USER_ID }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
+          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
