@@ -1,8 +1,10 @@
+# 已禁用阅读任务，其他可行
 name: 聚看点
+
 on:
   workflow_dispatch:
   schedule:
-     - cron: '0/20 0-23/2 * * *'
+     - cron: '*/20 */2 * * *'
   watch:
     types: started
 jobs:
@@ -25,7 +27,7 @@ jobs:
       - name: '运行 【聚看点】'
         if: env.JUKAN_BODY
         run: |
-          node Task/jkd.js
+          node Task/jukan.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
