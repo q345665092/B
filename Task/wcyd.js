@@ -41,7 +41,7 @@ hostname = mbeysxap.bar
 const $ = new Env('文创阅读');
 let status;
 status = (status = ($.getval("wcydstatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
-const wcydurlArr = ['http://bxkqemkc.bar/hfTask/startRead'], wcydhdArr = ['{"X-Requested-With":"XMLHttpRequest","Connection":"keep-alive","Accept-Encoding":"gzip, deflate","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8","Origin":"http://bxkqemkc.bar","User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.4(0x18000423) NetType/4G Language/zh_CN","Cookie":"JSESSIONID=F2D5207CE1CF19DFE060E25A6EE0C2D2","Host":"bxkqemkc.bar","Referer":"http://bxkqemkc.bar/hfTask/index.html?token=c8f18a540c924db294ebc2e0ba16c687","Accept-Language":"zh-cn","Accept":"application/json, text/javascript, */*; q=0.01","Content-Length":"6"}'],wcydcount = ''
+const wcydurlArr = ['http://bxkqemkc.bar/hfTask/startRead'], wcydhdArr = ['{"X-Requested-With":"XMLHttpRequest","Connection":"keep-alive","Accept-Encoding":"gzip, deflate","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8","Origin":"http://bxkqemkc.bar","User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.4(0x18000423) NetType/WIFI Language/zh_CN","Cookie":"JSESSIONID=48143F5FE19ABD59A10C1523BA0CB8DC","Host":"bxkqemkc.bar","Referer":"http://bxkqemkc.bar/hfTask/index.html?token=c8f18a540c924db294ebc2e0ba16c687","Accept-Language":"zh-cn","Accept":"application/json, text/javascript, */*; q=0.01","Content-Length":"6"}'],wcydcount = ''
 let wcydurl = $.getdata('wcydurl')
 let wcydhd = $.getdata('wcydhd')
 let urlwc = ''
