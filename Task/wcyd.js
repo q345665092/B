@@ -1,52 +1,51 @@
 /*
 软件名称:文创阅读 复制链接到微信打开
-更新时间：2021-04-01 @肥皂
+更新时间：2021-04-09 @肥皂
 脚本说明：文创阅读自动阅读
 脚本为自动完成文创阅读的阅读任务
 每日收益暂时不清楚，阅读单价目前为1分，一毛就可提现，支付宝秒到，需每日手动阅读通过微信鉴权，防止黑号，不会与其他的阅读脚本产生冲突，如番茄看看，云扫码，微客众智，66阅读，可一起跑脚本
-
+一分钟运行一次不掉ck
 复制链接到微信打开 注册需填写邀请人id和昵称
-欢迎一起读文章，文章任务多，满0.1元可提现，提现秒到账，（邀请人ID 23501  ，昵称  干饭人），点链接进入   http://i0k.cn/5nOu8
-
+欢迎一起读文章，文章任务多，满0.1元可提现，提现秒到账，（邀请人ID 23501  ，昵称  干饭人），点链接进入   http://qr30.cn/BWqTQo
 本脚本以学习为主！
 使用方法:复制上方链接进入，需填写邀请信息，点击阅读1开始阅读，获得阅读数据，自动提现请到boxjs中填写支付宝的提现信息
-
 4.1更新，cron表达更改为一分钟一次，可以避免cookie过期,就是每分钟运行一次脚本，但是这样可能导致文创的服务器承受不住,可能几天就薅死了。哈哈哈可以修改cron为 0-59 9-22 * * *
 意思就是每天的早上九点到晚上十点每分钟运行一次脚本，如果想一直不过期就把9-22改为0-23。。。不过风险很大。更改运行模式为运行一次脚本执行一次任务，而不是一直循环到没有任务可做
-
+4.7更新,修复文创阅读域名变化导致的无法抓包的问题。请更换重写和mitm,加入2.5高额文章任务。需要做一个关注任务才可以做高额任务。部分人可能不能做
+4.9更新文创重新链接和mitm，请更换，本次更换之后域名变化也没事了。
+[rewrite_local]
+#文创阅读
+http://.+?[^/]/hfTask/startRead url script-request-header https://raw.githubusercontent.com/age174/-/main/wcyd.js
+[MITM]
+hostname = .*bar
 TG电报群: https://t.me/hahaha8028
-
 boxjs地址 :  
 https://raw.githubusercontent.com/age174/-/main/feizao.box.json
-
 文创阅读
 圈X配置如下，其他软件自行测试，定时可以多设置几次，没任务会停止运行的
 [task_local]
 #文创阅读
 0-59 9-22 * * * https://raw.githubusercontent.com/age174/-/main/wcyd.js, tag=文创阅读, img-url=https://ae01.alicdn.com/kf/Ua6bd9417d492473f8ca0c3110b2176307.jpg, enabled=true
-
 [rewrite_local]
 #文创阅读
-http://qcjesnfs.bar/hfTask/startRead url script-request-header https://raw.githubusercontent.com/age174/-/main/wcyd.js
-
+http://.+?[^/]/hfTask/startRead url script-request-header https://raw.githubusercontent.com/age174/-/main/wcyd.js
 #loon
-http://qcjesnfs.bar/hfTask/startRead script-path=https://raw.githubusercontent.com/age174/-/main/wcyd.js, requires-header=true, timeout=10, tag=文创阅读
-
+http://.+?[^/]/hfTask/startRead script-path=https://raw.githubusercontent.com/age174/-/main/wcyd.js, requires-header=true, timeout=10, tag=文创阅读
 #surge
-文创阅读 = type=http-request,pattern=http://qcjesnfs.bar/hfTask/startRead,requires-header=1,max-size=0,script-path=https://raw.githubusercontent.com/age174/-/main/wcyd.js,script-update-interval=0
-
+文创阅读 = type=http-request,pattern=http://.+?[^/]/hfTask/startRead,requires-header=1,max-size=0,script-path=https://raw.githubusercontent.com/age174/-/main/wcyd.js,script-update-interval=0
 [MITM]
-hostname = qcjesnfs.bar
-
+hostname = mbeysxap.bar
 */
 
 
 const $ = new Env('文创阅读');
 let status;
 status = (status = ($.getval("wcydstatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
-const wcydurlArr = ['http://qcjesnfs.bar/hfTask/startRead'], wcydhdArr = ['{"X-Requested-With":"XMLHttpRequest","Connection":"keep-alive","Accept-Encoding":"gzip, deflate","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8","Origin":"http://qcjesnfs.bar","User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.3(0x18000328) NetType/WIFI Language/zh_CN","Cookie":"JSESSIONID=F78BF030DCB2CCD6A0B071B18443C8C5; Hm_lvt_94a436a757d93de93a93174d58e5b926=1617155337","Host":"qcjesnfs.bar","Referer":"http://qcjesnfs.bar/hfTask/index.html","Accept-Language":"zh-cn","Accept":"application/json, text/javascript, */*; q=0.01","Content-Length":"6"}'],wcydcount = ''
+const wcydurlArr = ['http://bxkqemkc.bar/hfTask/startRead'], wcydhdArr = ['{"X-Requested-With":"XMLHttpRequest","Connection":"keep-alive","Accept-Encoding":"gzip, deflate","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8","Origin":"http://bxkqemkc.bar","User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.4(0x18000423) NetType/4G Language/zh_CN","Cookie":"JSESSIONID=F2D5207CE1CF19DFE060E25A6EE0C2D2","Host":"bxkqemkc.bar","Referer":"http://bxkqemkc.bar/hfTask/index.html?token=c8f18a540c924db294ebc2e0ba16c687","Accept-Language":"zh-cn","Accept":"application/json, text/javascript, */*; q=0.01","Content-Length":"6"}'],wcydcount = ''
 let wcydurl = $.getdata('wcydurl')
 let wcydhd = $.getdata('wcydhd')
+let urlwc = ''
+let toke = ''
 let zfb = ($.getval('zfb') || '');//提现支付宝账号
 let name = ($.getval('name') || '');//提现支付宝用户名
 let txje = ($.getval('txje') || '0.1');//自定义提现金额
@@ -103,11 +102,12 @@ function wcyd1(timeout = 0) {
         $.msg($.name,"",'请先获取文创阅读数据!😓',)
         $.done()
       }
+urlwc = wcydurl.match(/http:\/\/(.*?)\//)[1]
 
 let url = {
-        url : 'http://qcjesnfs.bar/hfTask/startRead',
+        url : `http://${urlwc}/hfTask/startRead`,
         headers : JSON.parse(wcydhd),
-        body : 'isM6=2',
+        body : 'isM6=0',
 }
       $.post(url, async (err, resp, data) => {
 
@@ -115,13 +115,52 @@ let url = {
           //console.log(data)
     const result = JSON.parse(data)
         if(result.code == 0){
+token = JSON.parse(wcydhd)
+token = token.Referer
 console.log('\n文创阅读获取任务信息成功,阅读任务链接:\n'+result.msg)
 await $.wait(9000); 
 await wcydlb();      
-        
+await wcydyd();
 } else {
 console.log('文创阅读获取任务信息失败'+result.msg)
-await wcydyd();
+await wcyd2();
+}
+        } catch (e) {
+          //$.logErr(e, resp);
+        } finally {
+          resolve()
+        }
+      })
+    },timeout)
+  })
+}
+
+function wcyd2(timeout = 0) {
+  return new Promise((resolve) => {
+    setTimeout( ()=>{
+      if (typeof $.getdata('wcydhd') === "undefined") {
+        $.msg($.name,"",'请先获取文创阅读数据!😓',)
+        $.done()
+      }
+
+let url = {
+        url : `http://${urlwc}/hfTask/startRead`,
+        headers : JSON.parse(wcydhd),
+        body : 'isM6=1',
+}
+      $.post(url, async (err, resp, data) => {
+
+        try {
+          //console.log(data)
+    const result = JSON.parse(data)
+        if(result.code == 0){
+console.log('\n文创阅读高额任务获取信息成功,阅读任务链接:\n'+result.msg)
+await $.wait(9000); 
+await wcydlb();
+await wcydyd();      
+        
+} else {
+console.log('\n文创阅读高额任务获取信息失败'+result.msg)
 }
         } catch (e) {
           //$.logErr(e, resp);
@@ -139,7 +178,7 @@ function wcydlb(timeout = 0) {
   return new Promise((resolve) => {
 
 let url = {
-        url : "http://qcjesnfs.bar/hfTask/read",
+        url : `http://${urlwc}/hfTask/read`,
         headers : JSON.parse(wcydhd),
         body : '',
        
@@ -152,7 +191,6 @@ let url = {
         if(result.code == 0){
 
         console.log('\n文创阅读提交任务:'+result.msg)
-        await wcydyd();
 
 } else {
        console.log('\n文创阅读提交任务失败'+result.msg)
@@ -172,9 +210,9 @@ let url = {
 function wcydyd(timeout = 0) {
   return new Promise((resolve) => {
 let url = {
-        url : "http://qcjesnfs.bar/hfTask/getUser",
+        url : `http://${urlwc}/hfTask/getUser`,
         headers : JSON.parse(wcydhd),
-        body :'',
+        body : 'token=',
 }
       $.post(url, async (err, resp, data) => {
 
@@ -210,7 +248,7 @@ function wcydtx(timeout = 0) {
   return new Promise((resolve) => {
 
 let url = {
-        url : "http://qcjesnfs.bar/hfTask/cash",
+        url : `http://${urlwc}/hfTask/cash`,
         headers : JSON.parse(wcydhd),
         body : `wx=&zfb=${zfb}&name=${name}`,
 }
