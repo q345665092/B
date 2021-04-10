@@ -48,7 +48,7 @@ let urlwc = ''
 let toke = ''
 let zfb = ($.getval('zfb') || '');//提现支付宝账号
 let name = ($.getval('name') || '');//提现支付宝用户名
-let txje = ($.getval('txje') || '0.1');//自定义提现金额
+let txje = ($.getval('txje') || '1');//自定义提现金额
 !(async () => {
   if (typeof $request !== "undefined") {
     await wcydck()
