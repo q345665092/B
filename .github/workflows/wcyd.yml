@@ -5,7 +5,7 @@ name: wcyd
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0/5 1-16 * * *'
+    - cron: '0-59 9-22 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
