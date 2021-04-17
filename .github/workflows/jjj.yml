@@ -27,7 +27,7 @@ jobs:
       - name: '运行 【jjj】'
         if: env.LOADRESOURCEBODY
         run: |
-          node Task/shuqi.js
+          node Task/jjj.js
         env:
           LOADRESOURCEBODY: ${{ secrets.LOADRESOURCEBODY }}
           LOADRESOURCEKEY: ${{ secrets.LOADRESOURCEKEY }}
