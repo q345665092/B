@@ -1,0 +1,59 @@
+name: jjsqxs
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '5 7,8 * * *'
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    env:
+      LOADRESOURCEBODY: ${{ secrets.LOADRESOURCEBODY }}
+      LOADRESOURCEKEY: ${{ secrets.LOADRESOURCEKEY }}
+      SPLOADRESOURCEBODY: ${{ secrets.SPLOADRESOURCEBODY }}
+      SPLOADRESOURCEKEY: ${{ secrets.SPLOADRESOURCEKEY }}
+      WITHDRAWBODY: ${{ secrets.WITHDRAWBODY }}
+      BUBBLEBODY: ${{ secrets.BUBBLEBODY }}
+      RECEIVEBODY: ${{ secrets.RECEIVEBODY }}
+      SIGNINACTIONBODY: ${{ secrets.SIGNINACTIONBODY }}
+      READLOTTERYBODY: ${{ secrets.READLOTTERYBODY }}
+      VIDEOLOTTERYBODY: ${{ secrets.VIDEOLOTTERYBODY }}
+      LUCKYLOTTERYBODY: ${{ secrets.LUCKYLOTTERYBODY }}
+      LUCKYREDURL: ${{ secrets.LUCKYREDURL }}
+      LUCKYREDBODY: ${{ secrets.LUCKYREDBODY }}
+      SHAREBODY: ${{ secrets.SHAREBODY }}
+      BOOKTASKURL: ${{ secrets.BOOKTASKURL }}
+      BOOKTASKBODY: ${{ secrets.BOOKTASKBODY }}
+      SPSIGNINACTIONBODY: ${{ secrets.SPSIGNINACTIONBODY }}
+      SPREADCOINURL: ${{ secrets.SPREADCOINURL }}
+      SPREADCOINBODY: ${{ secrets.SPREADCOINBODY }}
+      SP1VIDEOCOINBODY: ${{ secrets.SP1VIDEOCOINBODY }}
+      SP2VIDEOCOINBODY: ${{ secrets.SP2VIDEOCOINBODY }}
+      SPSHAREBODY: ${{ secrets.SPSHAREBODY }}
+      LOTTERYINFOURL: ${{ secrets.LOTTERYINFOURL }}
+      VIDEOINFOURL: ${{ secrets.VIDEOINFOURL }}
+      SPVIDEOINFOUR: ${{ secrets.SPVIDEOINFOUR }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache node_modules
+        uses: actions/cache@v2 # 使用 GitHub 官方的缓存 Action。
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }} # 使用 package-lock.json 的 Hash 作为缓存的 key。也可以使用 package.json 代替
+      - name: npm install
+        
+        run: |
+          npm install
+      - name: '运行 【jjsqxs】'
+        
+        run: |
+          node Task/sguqi.js
