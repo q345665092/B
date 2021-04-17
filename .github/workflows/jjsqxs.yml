@@ -30,6 +30,7 @@ jobs:
         run: |
           npm install
       - name: '运行 【jjsqxs】'
+          if: env.LOADRESOURCEBODY
         
         run: |
           node Task/shuqi.js
