@@ -56,4 +56,4 @@ jobs:
       - name: '运行 【jjsqxs】'
         
         run: |
-          node Task/sguqi.js
+          node Task/shuqi.js
