@@ -44,7 +44,7 @@ hostname = bp-api.coohua.com
 const $ = new Env('幸福养鸡场');
 let status;
 status = (status = ($.getval("xfyjcstatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
-const xfyjchdArr = [],xfyjccount = ''
+const xfyjchdArr = ['{"bs":"CDMA","osVersion":"iOS 14.50","pkgId":"240","Accept-Encoding":"gzip, deflate, br","gps":"default","deviceId":"0","Host":"bp-api.coohua.com","brand":"Apple","channel":"AppStore","Connection":"keep-alive","Cache-Control":"no-cache","accessKey":"da9931249a0145be5f55d58a2f9cfe2a_212723642","appVersion":"1.0.2","Accept-Language":"zh-cn","User-Agent":"happyHennery-mobile/1 CFNetwork/1237 Darwin/20.4.0","os":"iOS","romVersion":"iOS 14.50","oaid":"","Accept":"*/*","wechatId":""}'],xfyjccount = ''
 let xfyjchd = $.getdata('xfyjchd')
 let id = '',name =''
 !(async () => {
