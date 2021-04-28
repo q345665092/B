@@ -27,7 +27,7 @@ hostname = api.litemob.com
 const $ = new Env('猜歌王者');
 let status;
 status = (status = ($.getval("cgwzstatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
-const cgwzurlArr = ['https://api.litemob.com/caigewangzhe_ios/song/info?uid=281553&is_test=0'], cgwzggurlArr = [],cgwzhdArr = ['{"Accept-Encoding":"gzip, deflate, br","Accept":"*/*","Connection":"keep-alive","Host":"api.litemob.com","User-Agent":"cai ge wang zhe/1.3.0 (iPhone; iOS 14.4.2; Scale/2.00)","version":"1.3.0","Accept-Language":"zh-Hans-CN;q=1"}'],cgwzcount = ''
+const cgwzurlArr = ['https://api.litemob.com/caigewangzhe_ios/song/info?uid=181553&is_test=0'], cgwzggurlArr = [],cgwzhdArr = ['{"Accept-Encoding":"gzip, deflate, br","Accept":"*/*","Connection":"keep-alive","Host":"api.litemob.com","User-Agent":"cai ge wang zhe/1.3.0 (iPhone; iOS 14.4.2; Scale/2.00)","version":"1.3.0","Accept-Language":"zh-Hans-CN;q=1"}'],cgwzcount = ''
 let times = Math.round(Date.now() / 1000)
 let cgwzurl = $.getdata('cgwzurl')
 let cgwzhd = $.getdata('cgwzhd')
