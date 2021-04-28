@@ -31,7 +31,7 @@ task订阅: https://raw.githubusercontent.com/xl2101200/-/main/Tom_task.josn
 const $ = new Env('keep早起打卡');
 let status;
 status = (status = ($.getval("keepstatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
-const keepurlArr = ['https://www.xiaeke.com/benmao/index.php/Home/MorningTree/gainEnergy?user_id=83386&energy_type=0&energy=10'], keephdArr = ['{"Accept":"*/*","Accept-Encoding":"gzip, deflate, br","Connection":"keep-alive","Referer":"https://servicewechat.com/wx78f529e29468199b/19/page-frame.html","Content-Type":"application/json","Host":"www.xiaeke.com","User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.4(0x18000424) NetType/WIFI Language/zh_CN","Accept-Language":"zh-cn"}'],keepcount = ''
+const keepurlArr = ['https://www.xiaeke.com/benmao/index.php/Home/MorningTree/gainEnergy?user_id=85415&energy_type=4&energy=10'], keephdArr = ['{"Referer":"https://servicewechat.com/wx78f529e29468199b/19/page-frame.html","Connection":"keep-alive","Host":"www.xiaeke.com","Accept-Encoding":"gzip,compress,br,deflate","Content-Type":"application/json","User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 14_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.5(0x18000520) NetType/WIFI Language/zh_CN"}'],keepcount = ''
 let time = Math.round(Date.now() / 1000)
 let keepurl = $.getdata('keepurl')
 let keephd = $.getdata('keephd')
