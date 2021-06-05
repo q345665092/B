@@ -1,4 +1,4 @@
-name: zqkd 
+name: 中青看点
 
 on:
   workflow_dispatch:
